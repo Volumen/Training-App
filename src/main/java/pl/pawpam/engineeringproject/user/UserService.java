@@ -11,9 +11,8 @@ public class UserService implements UserServiceInterface {
     @Qualifier("userRepository")
     @Autowired
     private UserRepository userRepository;
-
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    //@Autowired
+   // private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public User findUserByEmail(String email) {
@@ -23,8 +22,8 @@ public class UserService implements UserServiceInterface {
     @Override
     public void saveUser(User user) {
         user.setPassword(user.getPassword());
-        user.setActive(1);
 
         userRepository.save(user);
+
     }
 }

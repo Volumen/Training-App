@@ -2,15 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Main Page</title>
+    <title>Title</title>
 </head>
 <body>
-<p>sss</p>
-<form th:action="@{/register}" method="post">
-    <label for="name">Imię</label>:
-    <input type="text" id="name" name="name" autofocus="autofocus" /> <br />
-    <label for="lastName">Nazwisko</label>:
-    <input type="text" id="lastName" name="lastName" autofocus="autofocus" /> <br />
+<p>login</p>
+
+
+<form th:action="@{/login}" method="post">
     <label for="email">Email</label>:
     <input type="text" id="email" name="email" autofocus="autofocus" /> <br />
     <label for="password">Password</label>:
@@ -18,5 +16,6 @@
     <input type="submit" value="Logowanie" />
 </form>
 
+</form>
 </body>
 </html>

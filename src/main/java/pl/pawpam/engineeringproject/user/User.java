@@ -19,21 +19,6 @@ public class User {
     @NotBlank(message = "Email is mandatory")
     private String email;
 
-    @Column(name = "password")
-    @NotBlank(message = "password is mandatory")
-    private String password;
-
-    @Column(name = "lastName")
-    @NotBlank(message = "lastName is mandatory")
-    private String lastName;
-
-    @Column(name = "active")
-    private int active;
-
-
-    public User() {
-    }
-
     public String getPassword() {
         return password;
     }
@@ -56,6 +41,21 @@ public class User {
 
     public void setActive(int active) {
         this.active = active;
+    }
+
+    @Column(name = "password")
+    @NotBlank(message = "password is mandatory")
+    private String password;
+
+    @Column(name = "lastName")
+    @NotBlank(message = "lastName is mandatory")
+    private String lastName;
+
+    @Column(name = "active")
+    private int active;
+
+
+    public User() {
     }
 
     public User(String name, String email) {
