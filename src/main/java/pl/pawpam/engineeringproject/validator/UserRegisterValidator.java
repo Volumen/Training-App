@@ -17,27 +17,29 @@ public class UserRegisterValidator implements Validator {
     public void validate(Object obj, Errors errors) {
         User u = (User) obj;
 
-        ValidationUtils.rejectIfEmpty(errors, "name", "puste imie");
-        ValidationUtils.rejectIfEmpty(errors, "lastName", "puste nazwisko");
-        ValidationUtils.rejectIfEmpty(errors, "email", "puste emial");
-        ValidationUtils.rejectIfEmpty(errors, "password", "puste haslo");
+        ValidationUtils.rejectIfEmpty(errors, "name", "error.userName.empty");
+        ValidationUtils.rejectIfEmpty(errors, "lastName", "error.userLastName.empty");
+        ValidationUtils.rejectIfEmpty(errors, "email", "error.userEmail.empty");
+        ValidationUtils.rejectIfEmpty(errors, "password", "error.userPassword.empty");
 
         if (!u.getEmail().equals(null)) {
             boolean isMatch = AppUtilities.checkEmailOrPassword(AppConstants.EMAIL_PATTERN, u.getEmail());
             if (!isMatch) {
-                errors.rejectValue("email", "nie pasuje mail");
+                System.out.println("email nie pasuje");
+                errors.rejectValue("email", "error.userEmailIsNotMatch");
             }
         }
         if (!u.getPassword().equals(null)) {
             boolean isMatch = AppUtilities.checkEmailOrPassword(AppConstants.PASSWORD_PATTERN, u.getPassword());
             if (!isMatch) {
-                errors.rejectValue("password", "nie pasuje haslo");
+                System.out.println("nie pasuje haslo");
+                errors.rejectValue("password", "error.userPasswordIsNotMatch");
                 }
             }
         }
         public void validateEmailExist(User user, Errors errors) {
             if (user != null) {
-                errors.rejectValue("email", "mail juz istnieje");
+                errors.rejectValue("email", "error.userEmailExist");
             }
         }
 

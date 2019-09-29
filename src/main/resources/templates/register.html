@@ -6,16 +6,34 @@
 </head>
 <body>
 <p>sss</p>
-<form th:action="@{/register}" method="post">
-    <label for="name">Imię</label>:
-    <input type="text" id="name" name="name" autofocus="autofocus" /> <br />
-    <label for="lastName">Nazwisko</label>:
-    <input type="text" id="lastName" name="lastName" autofocus="autofocus" /> <br />
-    <label for="email">Email</label>:
-    <input type="text" id="email" name="email" autofocus="autofocus" /> <br />
-    <label for="password">Password</label>:
-    <input type="password" id="password" name="password" /> <br />
-    <input type="submit" value="Logowanie" />
+<h1 th:text="Rejestration">form</h1>
+<div th:if="${param}">
+
+</div>
+<form th:action="@{/adduser}" th:object="${user}" method="POST" enctype="utf8">
+    <div>
+        <label for="name" th:name="*{name}">Imię</label>:
+        <input type="text" id="name" name="name" autofocus="autofocus" /> <br />
+<!--        <p th:each="error: ${#fields.errors('name')}"></p>-->
+    </div>
+    <div>
+        <label for="lastName" th:name="*{lastName}">Nazwisko</label>:
+        <input type="text" id="lastName" name="lastName" autofocus="autofocus" /> <br />
+<!--        <p th:each="error: ${#fields.errors('lastName')}"></p>-->
+    </div>
+    <div>
+        <label for="email" th:name="*{email}">Email</label>:
+        <input type="text" id="email" name="email" autofocus="autofocus" /> <br />
+<!--        <p th:each="error: ${#fields.errors('email')}"></p>-->
+    </div>
+    <div>
+        <label for="password" th:name="*{password}">Password</label>:
+        <input type="password" id="password" name="password" /> <br />
+<!--        <p th:each="error: ${#fields.errors('password')}"></p>-->
+    </div>
+    <div>
+        <button type="submit"th:text="submit">Submit</button>
+    </div>
 </form>
 
 </body>

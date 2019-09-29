@@ -40,15 +40,28 @@ public class RegisterController {
         new UserRegisterValidator().validateEmailExist(userExist, result);
         new UserRegisterValidator().validate(user, result);
 
-        if (result.hasErrors()) {   //jesli formularz zawieta bledy, wracamy na strone register
-            returnPage = "register";
-        } else {    // jesli formularz nie zawiera błedów, zapisujemy uzytkownika i przekazujemy na strone dwa komunikaty
-            userService.saveUser(user);
-            model.addAttribute("message", messageSource.getMessage("user.register.success", null, locale));//pierwszy komunikat, który informuje, ze rejestracja zakończyla sie pomyślnie
-            model.addAttribute("user", new User()); //przekazujemy nowego uzytkownika, bo model wymaga przekazania obiektu typu user
-            returnPage = "register";
-        }
+//        if (result.hasErrors()) {   //jesli formularz zawieta bledy, wracamy na strone register
+//            System.out.println("Cos poszlo nie tak!");
+//            returnPage = "register";
+//        } else {    // jesli formularz nie zawiera błedów, zapisujemy uzytkownika i przekazujemy na strone dwa komunikaty
+//            userService.saveUser(user);
+//            //model.addAttribute("message", messageSource.getMessage("user.register.success", null,locale));//pierwszy komunikat, który informuje, ze rejestracja zakończyla sie pomyślnie
+//            model.addAttribute("user", new User()); //przekazujemy nowego uzytkownika, bo model wymaga przekazania obiektu typu user
+//            returnPage = "register";
+//        }
+//        if (userExist != null){
+//            result.rejectValue("email", null, "There is already an account registered with that email");
+//        }
 
-        return returnPage;
+        if (result.hasErrors()){
+            System.out.println("Cos poszlo nie tak!");
+            return "register";
+        }
+        else {
+            userService.saveUser(user);
+            model.addAttribute("user", new User());
+            System.out.println("Rejestracja przebiegła pomyślnie!");
+            return "register";
+        }
     }
 }
