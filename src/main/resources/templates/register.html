@@ -19,7 +19,8 @@
     <div>
         <label for="lastName" th:name="*{lastName}">Nazwisko</label>:
         <input type="text" id="lastName" name="lastName" autofocus="autofocus" /> <br />
-<!--        <p th:each="error: ${#fields.errors('lastName')}"></p>-->
+<!--       <p th:each="error: ${#fields.errors('lastName')}">sss</p>-->
+<!--        <p th:if="${#fields.hasErrors('datePlanted')}">Halo</p>-->
     </div>
     <div>
         <label for="email" th:name="*{email}">Email</label>:

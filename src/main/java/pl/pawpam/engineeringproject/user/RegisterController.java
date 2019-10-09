@@ -17,7 +17,7 @@ import java.util.Locale;
 public class RegisterController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
     private MessageSource messageSource;
@@ -35,7 +35,7 @@ public class RegisterController {
     {
         String returnPage = null;
 
-        User userExist = userService.findUserByEmail(user.getEmail());
+        User userExist = userServiceImpl.findUserByEmail(user.getEmail());
 
         new UserRegisterValidator().validateEmailExist(userExist, result);
         new UserRegisterValidator().validate(user, result);
@@ -58,7 +58,7 @@ public class RegisterController {
             return "register";
         }
         else {
-            userService.saveUser(user);
+            userServiceImpl.saveUser(user);
             model.addAttribute("user", new User());
             System.out.println("Rejestracja przebiegła pomyślnie!");
             return "register";
