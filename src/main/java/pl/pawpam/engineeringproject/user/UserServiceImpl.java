@@ -2,10 +2,12 @@ package pl.pawpam.engineeringproject.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import pl.pawpam.engineeringproject.validator.UserRegisterValidator;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -62,4 +64,9 @@ public class UserServiceImpl implements UserServiceInterface {
 //    public BCryptPasswordEncoder bCryptPasswordEncoder() {
 //        return new BCryptPasswordEncoder();
 //    }
+    public void checkUserBeforeRegister(User user, BindingResult result)
+    {
+       // new UserRegisterValidator().validateEmailExist(userExist, result);
+        new UserRegisterValidator().validate(user, result);
+    }
 }

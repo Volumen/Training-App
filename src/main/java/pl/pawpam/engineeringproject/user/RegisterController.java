@@ -5,10 +5,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import pl.pawpam.engineeringproject.validator.UserRegisterValidator;
 
 import java.util.Locale;
@@ -22,7 +18,7 @@ public class RegisterController {
     @Autowired
     private MessageSource messageSource;
 
-    @GetMapping(value = "/register")
+    //@GetMapping(value = "/register")
     public String registerForm(Model model)
     {
         User u = new User();
@@ -30,7 +26,7 @@ public class RegisterController {
         return "register";
     }
 
-    @PostMapping(value = "/adduser")
+    //@PostMapping(value = "/adduser")
     public String registerAction(User user, BindingResult result, Model model, Locale locale)// A bindingResult - object so you can test for and retrieve validation errors.
     {
         String returnPage = null;

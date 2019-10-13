@@ -1,7 +1,8 @@
 package pl.pawpam.engineeringproject.user;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
@@ -14,11 +15,11 @@ public class User {
     private long id;
 
     @Column(name = "name")
-    @NotBlank(message = "Name is mandatory")
+    @NotNull
     private String name;
 
     @Column(name = "email")
-    @NotBlank(message = "Email is mandatory")
+    @NotNull
     private String email;
 
     public String getPassword() {
@@ -46,11 +47,11 @@ public class User {
     }
 
     @Column(name = "password")
-    @NotBlank(message = "password is mandatory")
+    @NotNull
     private String password;
 
     @Column(name = "lastName")
-    @NotBlank(message = "lastName is mandatory")
+    @NotNull
     private String lastName;
 
     @Column(name = "active")

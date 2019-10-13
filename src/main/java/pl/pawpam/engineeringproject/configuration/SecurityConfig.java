@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,7 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/adduser").permitAll()
-
+                .antMatchers("/menu").permitAll()
+                .antMatchers("/VAADIN/**","/HEARTBEAT/**", "/UIDL/**", "/resources/**", "/login", "/login**", "/login/**").permitAll()
+               // , "/HEARTBEAT/**", "/UIDL/**", "/resources/**", "/login", "/login**", "/login/**"
                 .antMatchers("/admin").hasAuthority("ROLE_ADMIN")
 
                 .anyRequest().authenticated()
@@ -51,16 +52,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/").usernameParameter("email")
+                .defaultSuccessUrl("/").usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
                 .and().exceptionHandling().accessDeniedPage("/danied");
     }
-    public void configure(WebSecurity webSec) throws Exception {
-        webSec.ignoring()
-                .antMatchers("/resources/**", "/statics/**", "/css/**", "/js/**", "/images/**");
-    }
+//    public void configure(WebSecurity webSec) throws Exception {
+//        webSec.ignoring()
+//                .antMatchers("/resources/**", "/statics/**", "/css/**", "/js/**", "/images/**");
+//    }
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
