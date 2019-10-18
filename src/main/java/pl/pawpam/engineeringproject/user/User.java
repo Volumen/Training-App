@@ -10,7 +10,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private long id;
 
@@ -21,6 +21,17 @@ public class User {
     @Column(name = "email")
     @NotNull
     private String email;
+
+    @Column(name = "password")
+    @NotNull
+    private String password;
+
+    @Column(name = "lastName")
+    @NotNull
+    private String lastName;
+
+    @Column(name = "active")
+    private int active;
 
     public String getPassword() {
         return password;
@@ -46,18 +57,7 @@ public class User {
         this.active = active;
     }
 
-    @Column(name = "password")
-    @NotNull
-    private String password;
-
-    @Column(name = "lastName")
-    @NotNull
-    private String lastName;
-
-    @Column(name = "active")
-    private int active;
-
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
@@ -88,6 +88,13 @@ public class User {
         this.email = email;
     }
 
+    public User(String name, String email, String password, String lastName) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.lastName = lastName;
+    }
+
     public long getId() {
         return id;
     }
@@ -111,4 +118,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 }

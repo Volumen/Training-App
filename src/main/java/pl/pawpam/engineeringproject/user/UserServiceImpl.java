@@ -2,43 +2,45 @@ package pl.pawpam.engineeringproject.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.BindingResult;
-import pl.pawpam.engineeringproject.validator.UserRegisterValidator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service("userService")
 @Transactional
 public class UserServiceImpl implements UserServiceInterface {
 
-    @Qualifier("userRepository")
-    @Autowired
+
+//    @Qualifier("userRepository")
+//    @Autowired
     private UserRepository userRepository;
-    @Qualifier("roleRepository")
-    @Autowired
+//    @Qualifier("roleRepository")
+//    @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired
+    //@Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-//    @Autowired
-//    public UserServiceImpl(@Qualifier("userRepository")UserRepository userRepository,
-//                       @Qualifier("roleRepository") RoleRepository roleRepository) {
-//        this.userRepository=userRepository;
-//        this.roleRepository=roleRepository;
-//       // this.bCryptPasswordEncoder=bCryptPasswordEncoder;
-//    }
+    @Autowired
+    public UserServiceImpl(@Qualifier("userRepository")UserRepository userRepository,
+                       @Qualifier("roleRepository") RoleRepository roleRepository,BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository=userRepository;
+        this.roleRepository=roleRepository;
+        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
+
+    }
 
     // private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+
     @Override
     public User findUserByEmail(String email) {
-        return null;
+        return userRepository.findByEmail(email);
     }
 
     @Override
@@ -46,17 +48,29 @@ public class UserServiceImpl implements UserServiceInterface {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
 
-        Role role = roleRepository.findByRole("ROLE_ADMIN");
+        Role role = roleRepository.findByRole("ROLE_USER");
         user.setRoles(new HashSet<>(Arrays.asList(role)));
         userRepository.save(user);
 
     }
+//    @Override
+//    public List<User> findAll()
+//    {
+//        List<User> userList = userRepository.findAll();
+//        return userList;
+//    }
 
     @Override
     public void updateUserPassword(String newPassword, String email) {
 
     }
-//    @Override
+
+    @Override
+    public List<User> findAll() {
+        return null;
+    }
+
+    //    @Override
 //    public void updateUserPassword(String newPassword, String email) {
 //        userRepository.updateUserPassword(bCryptPasswordEncoder.encode(newPassword), email);
 //    }
@@ -64,9 +78,5 @@ public class UserServiceImpl implements UserServiceInterface {
 //    public BCryptPasswordEncoder bCryptPasswordEncoder() {
 //        return new BCryptPasswordEncoder();
 //    }
-    public void checkUserBeforeRegister(User user, BindingResult result)
-    {
-       // new UserRegisterValidator().validateEmailExist(userExist, result);
-        new UserRegisterValidator().validate(user, result);
-    }
+
 }

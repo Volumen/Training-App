@@ -9,9 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
 @Repository("userRepository")
 public interface UserRepository extends JpaRepository<User, Integer> {
-    List<User> findByName(String name);
+
+    //@Query("select u from User u where u.email = ?1")
+    User findByEmail(String email);
+
 
     @Modifying
     @Query("UPDATE User u SET u.password = :newPassword WHERE u.email= :email")
