@@ -1,6 +1,7 @@
 package pl.pawpam.engineeringproject.gui;
 
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.menubar.MenuBar;
@@ -20,15 +21,17 @@ public class MainGui extends VerticalLayout {
     private Menu mainMenu;
         private MenuBar menuBar;
         UserServiceImpl userService;
+        private Button button;
 
         @Autowired
     public MainGui(UserServiceImpl userService) {
         this.userService = userService;
         mainMenu = new Menu(userService);
         Label l1 = new Label("halo");
+        button = new Button("Hallo!");
+        button.setClassName("buttonOne");
 
-
-        add(mainMenu,l1);
+        add(mainMenu,l1,button);
 
     }
 

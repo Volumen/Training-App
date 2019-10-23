@@ -8,7 +8,7 @@ import pl.pawpam.engineeringproject.user.User;
 import java.util.List;
 
 public interface AdminService {
-    Page<User> findAll(Pageable pageable);
+    //Page<User> findAll(Pageable pageable);
     List<User> getUsers();
     User findUserById(int id);
     void updateUser(int id, int nrRoli, int activity);

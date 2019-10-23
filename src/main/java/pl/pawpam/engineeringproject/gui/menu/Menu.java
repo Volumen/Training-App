@@ -2,9 +2,13 @@ package pl.pawpam.engineeringproject.gui.menu;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.contextmenu.MenuItem;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.lumo.Lumo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -12,11 +16,13 @@ import pl.pawpam.engineeringproject.user.User;
 import pl.pawpam.engineeringproject.user.UserServiceImpl;
 import pl.pawpam.engineeringproject.utilities.UserUtilities;
 
-
+@CssImport("styles/custom-styles.css")
 @Route("menu")
 public class Menu extends VerticalLayout {
     private MenuBar barmenu;
-    private String showme;
+    private MenuBar barmenuTwo;
+    private HorizontalLayout horizontalLayout;
+    private Div div;
 
     private UserServiceImpl userService;
     int roleNr;
@@ -24,18 +30,27 @@ public class Menu extends VerticalLayout {
     @Autowired
     public Menu(UserServiceImpl userService) {
         this.userService = userService;
+        horizontalLayout = new HorizontalLayout();
+        horizontalLayout.setClassName("menu-horizontal");
         barmenu = new MenuBar();
-        setAlignItems(Alignment.CENTER);
+        barmenuTwo = new MenuBar();
+        div = new Div();
+        div.setClassName("mainDiv");
+        UI.getCurrent().getElement().setAttribute("theme", Lumo.DARK);
+
+        barmenu.setClassName("bar-menu-left");
+        barmenuTwo.setClassName("bar-menu-right");
         MenuItem mainPage = barmenu.addItem("Main Page");
         MenuItem login = barmenu.addItem("Login");
         MenuItem register = barmenu.addItem("Register");
         MenuItem adminPanel = barmenu.addItem("AdminPanel");
-        MenuItem userPanel = barmenu.addItem("UserPanel");
-        MenuItem logoutButton = barmenu.addItem("Logout");
-        MenuItem profileInfoButton = barmenu.addItem("Profile");
         MenuItem trainingButton = barmenu.addItem("Training!");
-        //showme = UserUtilities.getLoggedUser();
-        System.out.println("show me: "+showme);
+        MenuItem userPanel = barmenuTwo.addItem("UserPanel");
+        MenuItem logoutButton = barmenuTwo.addItem("Logout");
+        MenuItem profileInfoButton = barmenuTwo.addItem("Profile");
+
+        horizontalLayout.add(barmenu,barmenuTwo);
+        div.add(horizontalLayout);
 
      if(UserUtilities.getLoggedUser() == null)
      {
@@ -109,7 +124,7 @@ public class Menu extends VerticalLayout {
 
 
 
-        add(barmenu);
+        add(div);
     }
 
 }

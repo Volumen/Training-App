@@ -28,7 +28,8 @@ public class UserServiceImpl implements UserServiceInterface {
 
     @Autowired
     public UserServiceImpl(@Qualifier("userRepository")UserRepository userRepository,
-                       @Qualifier("roleRepository") RoleRepository roleRepository,BCryptPasswordEncoder bCryptPasswordEncoder) {
+                       @Qualifier("roleRepository") RoleRepository roleRepository,
+                           BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository=userRepository;
         this.roleRepository=roleRepository;
         this.bCryptPasswordEncoder=bCryptPasswordEncoder;

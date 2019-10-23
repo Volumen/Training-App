@@ -1,6 +1,7 @@
 package pl.pawpam.engineeringproject.training;
 
 import com.sun.istack.NotNull;
+import com.vaadin.flow.component.html.Image;
 
 import javax.persistence.*;
 
@@ -25,7 +26,26 @@ public class Exercise {
     @NotNull
     private String info;
 
+    @Column(name = "img_path")
+    @NotNull
+    private Image imgPath;
+
+    public Exercise(String exerciseName, int level, String info, Image imgPath) {
+        this.exerciseName = exerciseName;
+        this.level = level;
+        this.info = info;
+        this.imgPath = imgPath;
+    }
+
     public Exercise() {
+    }
+
+    public Image getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(Image imgPath) {
+        this.imgPath = imgPath;
     }
 
     public int getId() {

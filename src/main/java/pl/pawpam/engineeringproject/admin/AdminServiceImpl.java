@@ -43,11 +43,11 @@ public class AdminServiceImpl implements AdminService {//jesli jedna się nie po
         lisfOfUsers = new ArrayList<>();
     }
 
-    @Override
-    public Page<User> findAll(Pageable pageable) {
-        Page<User> userList = adminRepository.findAll(pageable);
-        return userList;
-    }
+//    @Override
+//    public Page<User> findAll(Pageable pageable) {
+//        Page<User> userList = adminRepository.findAll(pageable);
+//        return userList;
+//    }
     public List<User> getUsers()
     {
         lisfOfUsers = adminRepository.findAll();

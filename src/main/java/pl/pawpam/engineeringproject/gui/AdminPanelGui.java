@@ -1,5 +1,6 @@
 package pl.pawpam.engineeringproject.gui;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -18,6 +19,7 @@ public class AdminPanelGui extends VerticalLayout {
     private Menu menu;
     private Label adminLabel;
     private AdminServiceImpl adminService;
+    private Button exercisesButton;
 
     @Autowired
     public AdminPanelGui(UserServiceImpl userService,AdminServiceImpl adminService) {
@@ -25,10 +27,17 @@ public class AdminPanelGui extends VerticalLayout {
         this.adminService = adminService;
         menu = new Menu(userService);
         adminLabel = new Label("Administration");
+        exercisesButton = new Button("Manage Exercises");
+
+        User user = new User();
 
         Grid<User> grid = new Grid<>(User.class);
         grid.setItems(adminService.getUsers());
 
-        add(menu,adminLabel,grid);
+        exercisesButton.addClickListener(event -> {
+            exercisesButton.getUI().ifPresent(ui -> ui.navigate("exercise"));
+        });
+
+        add(menu,adminLabel,exercisesButton,grid);
     }
 }
