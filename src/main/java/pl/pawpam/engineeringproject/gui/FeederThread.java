@@ -20,7 +20,9 @@ public class FeederThread extends Thread{
             {
                 Thread.sleep(1000);
                 String message = "This is update " + count++;
-                ui.access(()->view.setLabel(String.valueOf(count)));
+                ui.access(()->{
+                    view.setSpan(String.valueOf(count));
+                });
             }
             ui.access(()->{
                 view.add(new Span("Done updating"));

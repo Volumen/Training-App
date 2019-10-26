@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Exercise {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "exercise_id")
     private int id;
 
@@ -31,6 +31,14 @@ public class Exercise {
     private Image imgPath;
 
     public Exercise(String exerciseName, int level, String info, Image imgPath) {
+        this.exerciseName = exerciseName;
+        this.level = level;
+        this.info = info;
+        this.imgPath = imgPath;
+    }
+
+    public Exercise(int id, String exerciseName, int level, String info, Image imgPath) {
+        this.id = id;
         this.exerciseName = exerciseName;
         this.level = level;
         this.info = info;

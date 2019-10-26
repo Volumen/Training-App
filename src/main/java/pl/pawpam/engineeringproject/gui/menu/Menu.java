@@ -1,6 +1,5 @@
 package pl.pawpam.engineeringproject.gui.menu;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
@@ -8,10 +7,8 @@ import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.lumo.Lumo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import pl.pawpam.engineeringproject.user.User;
 import pl.pawpam.engineeringproject.user.UserServiceImpl;
 import pl.pawpam.engineeringproject.utilities.UserUtilities;
@@ -36,7 +33,7 @@ public class Menu extends VerticalLayout {
         barmenuTwo = new MenuBar();
         div = new Div();
         div.setClassName("mainDiv");
-        UI.getCurrent().getElement().setAttribute("theme", Lumo.DARK);
+        //UI.getCurrent().getElement().setAttribute("theme", Lumo.DARK);
 
         barmenu.setClassName("bar-menu-left");
         barmenuTwo.setClassName("bar-menu-right");
@@ -45,7 +42,6 @@ public class Menu extends VerticalLayout {
         MenuItem register = barmenu.addItem("Register");
         MenuItem adminPanel = barmenu.addItem("AdminPanel");
         MenuItem trainingButton = barmenu.addItem("Training!");
-        MenuItem userPanel = barmenuTwo.addItem("UserPanel");
         MenuItem logoutButton = barmenuTwo.addItem("Logout");
         MenuItem profileInfoButton = barmenuTwo.addItem("Profile");
 
@@ -72,18 +68,21 @@ public class Menu extends VerticalLayout {
 
         if(roleNr==1)
         {
-            userPanel.setEnabled(false);
-            userPanel.setVisible(false);
+            login.setEnabled(false);
+            login.setVisible(false);
+            register.setEnabled(false);
+            register.setVisible(false);
         }
         else if(roleNr == 2)
         {
+            login.setEnabled(false);
+            login.setVisible(false);
+            register.setEnabled(false);
+            register.setVisible(false);
             adminPanel.setEnabled(false);
             adminPanel.setVisible(false);
-            userPanel.setVisible(false);
         }
         else {
-            userPanel.setEnabled(false);
-            userPanel.setVisible(false);
             adminPanel.setEnabled(false);
             adminPanel.setVisible(false);
             logoutButton.setVisible(false);

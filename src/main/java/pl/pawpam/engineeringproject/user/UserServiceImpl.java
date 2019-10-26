@@ -54,12 +54,7 @@ public class UserServiceImpl implements UserServiceInterface {
         userRepository.save(user);
 
     }
-//    @Override
-//    public List<User> findAll()
-//    {
-//        List<User> userList = userRepository.findAll();
-//        return userList;
-//    }
+
 
     @Override
     public void updateUserPassword(String newPassword, String email) {
@@ -67,8 +62,8 @@ public class UserServiceImpl implements UserServiceInterface {
     }
 
     @Override
-    public List<User> findAll() {
-        return null;
+    public List<User> getAllUsers() {
+        return userRepository.findAll() ;
     }
 
     //    @Override

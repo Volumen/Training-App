@@ -1,9 +1,11 @@
 package pl.pawpam.engineeringproject.gui;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
+import pl.pawpam.engineeringproject.admin.Components;
 import pl.pawpam.engineeringproject.gui.menu.Menu;
 import pl.pawpam.engineeringproject.user.User;
 import pl.pawpam.engineeringproject.user.UserServiceImpl;
@@ -22,9 +24,12 @@ public class ProfileGui extends VerticalLayout {
     private Menu menu;
     private String role;
     private int roleNr;
+    private Components components;
+    private Button backButton;
 
     @Autowired
-    public ProfileGui(UserServiceImpl userService) {
+    public ProfileGui(UserServiceImpl userService,Components components) {
+        this.components = components;
         this.userService = userService;
         setAlignItems(Alignment.CENTER);
         menu = new Menu(userService);
@@ -35,13 +40,15 @@ public class ProfileGui extends VerticalLayout {
         System.out.println("User: "+user);
          roleNr = user.getRoles().iterator().next().getId(); //w ten sposob odczytujemy nr roli jaka wróci z bazy danych
 
+        backButton = components.getBackButton("");
+
         userNameLabel = new Label("Name: "+user.getName());
-        userLastNameLabel = new Label("Second Name: "+user.getLastName());
+        userLastNameLabel = new Label("Last Name: "+user.getLastName());
         userEmailLabel = new Label("Email: "+user.getEmail());
         userActiveLabel = new Label("Active: "+user.getActive());
         System.out.println(user.getNrRoli());
         if(roleNr==1){role = "Admin";}else {role = "User";}
         roleLabel = new Label("Role: "+role);
-        add(userNameLabel,userLastNameLabel,userEmailLabel,userActiveLabel,roleLabel);
+        add(userNameLabel,userLastNameLabel,userEmailLabel,userActiveLabel,roleLabel,backButton);
     }
 }

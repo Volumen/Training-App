@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ExerciseServiceInterface {
      void addExercise();
-     List<Exercise> showExercises();
+     List<Exercise> getExercises();
 }

@@ -21,7 +21,7 @@ public class ExerciseService implements ExerciseServiceInterface {
     }
 
     @Override
-    public List<Exercise> showExercises() {
+    public List<Exercise> getExercises() {
         return exerciseRepository.getExerciseList();
     }
 
