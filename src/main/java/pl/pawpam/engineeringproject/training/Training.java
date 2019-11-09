@@ -8,27 +8,35 @@ import java.util.Map;
 public class Training {
 
     private List<Exercise> exerciseList;
-    private int reps;
+    private int sets;
     private Long userId;
+    private Long trainingId;
+    private String trainingName;
     private int breaksBetweenExercises;
     private int level;
 
-    public Training(List<Exercise> exerciseList, int reps, int breaksBetweenExercises, int level) {
-        this.exerciseList = exerciseList;
-        this.reps = reps;
-        this.breaksBetweenExercises = breaksBetweenExercises;
-        this.level = level;
+    public String getTrainingName() {
+        return trainingName;
     }
 
-    @Override
-    public String toString() {
-        return "Training{" +
-                "exerciseList=" + exerciseList +
-                ", reps=" + reps +
-                ", userId=" + userId +
-                ", breaksBetweenExercises=" + breaksBetweenExercises +
-                ", level=" + level +
-                '}';
+    public void setTrainingName(String trainingName) {
+        this.trainingName = trainingName;
+    }
+
+    public Training(List<Exercise> exerciseList, Long trainingId, String trainingName, int breaksBetweenExercises, int level, int sets) {
+        this.exerciseList = exerciseList;
+        this.trainingId = trainingId;
+        this.trainingName = trainingName;
+        this.breaksBetweenExercises = breaksBetweenExercises;
+        this.level = level;
+        this.sets = sets;
+    }
+
+    public Training(List<Exercise> exerciseList, Long trainingId, int breaksBetweenExercises, int level) {
+        this.exerciseList = exerciseList;
+        this.trainingId = trainingId;
+        this.breaksBetweenExercises = breaksBetweenExercises;
+        this.level = level;
     }
 
     public List<Exercise> getExerciseList() {
@@ -39,20 +47,20 @@ public class Training {
         this.exerciseList = exerciseList;
     }
 
-    public int getReps() {
-        return reps;
-    }
-
-    public void setReps(int reps) {
-        this.reps = reps;
-    }
-
     public Long getUserId() {
         return userId;
     }
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getTrainingId() {
+        return trainingId;
+    }
+
+    public void setTrainingId(Long trainingId) {
+        this.trainingId = trainingId;
     }
 
     public int getBreaksBetweenExercises() {
@@ -69,5 +77,25 @@ public class Training {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public int getSets() {
+        return sets;
+    }
+
+    public void setSets(int sets) {
+        this.sets = sets;
+    }
+
+    @Override
+    public String toString() {
+        return "Training{" +
+                "exerciseList=" + exerciseList +
+                ", userId=" + userId +
+                ", trainingId=" + trainingId +
+                ", trainingName='" + trainingName + '\'' +
+                ", breaksBetweenExercises=" + breaksBetweenExercises +
+                ", level=" + level +
+                '}';
     }
 }

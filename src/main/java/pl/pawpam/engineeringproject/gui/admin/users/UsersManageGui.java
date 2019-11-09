@@ -38,6 +38,7 @@ public class UsersManageGui extends VerticalLayout{
         userGrid.addColumn(User::getName).setHeader("Name");
         userGrid.addColumn(User::getLastName).setHeader("Last Name");
         userGrid.addColumn(User::getEmail).setHeader("Email");
+        userGrid.setHeightByRows(true);
         
 
         add(label,userGrid);

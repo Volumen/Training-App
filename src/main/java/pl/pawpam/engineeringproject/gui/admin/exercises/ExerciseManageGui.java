@@ -37,6 +37,7 @@ public class ExerciseManageGui extends VerticalLayout {
         exerciseGrid.addColumn(Exercise::getExerciseName).setHeader("Exercise Name");
         exerciseGrid.addColumn(Exercise::getLevel).setHeader("Level");
         exerciseGrid.addColumn(Exercise::getInfo).setHeader("Info");
+        exerciseGrid.setHeightByRows(true);
 
 
         add(exerciseLabel,exerciseGrid);

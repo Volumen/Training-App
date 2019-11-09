@@ -1,36 +1,30 @@
-package pl.pawpam.engineeringproject.gui;
+package pl.pawpam.engineeringproject.gui.training;
 
 import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.DetachEvent;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
+import pl.pawpam.engineeringproject.gui.TrainingThread;
 import pl.pawpam.engineeringproject.gui.menu.Menu;
-import pl.pawpam.engineeringproject.training.Training;
 import pl.pawpam.engineeringproject.training.TrainingService;
 import pl.pawpam.engineeringproject.user.UserServiceImpl;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
-@Push
 @Route("training")
 public class TrainingGui extends VerticalLayout {
     private UserServiceImpl userService;
     private TrainingService trainingService;
     private Menu menu;
     private Label counterLabel;
-    private Button startButton;
+    private Button fullBodyWorkoutButton;
+    private Button basicBeginnerButton;
     private Span span;
-    private FeederThread thread;
-    int i =0;
 
     @Autowired
     public TrainingGui(UserServiceImpl userService, TrainingService trainingService) {
@@ -40,39 +34,16 @@ public class TrainingGui extends VerticalLayout {
         span = new Span("Halo");
 
         counterLabel = new Label("Choose training!");
-        startButton = new Button("Start");
+        fullBodyWorkoutButton = new Button("Full Body Workout");
+        basicBeginnerButton = new Button("Basic Beginner");
         HorizontalLayout horizontalLayout = new HorizontalLayout();
-        startButton.addClickListener(e->{
-            thread = new FeederThread(UI.getCurrent(),this);
-            thread.start();
+        fullBodyWorkoutButton.addClickListener(event->{
+            this.getUI().ifPresent(ui -> ui.navigate(StartTrainingGui.class, trainingService.getTrainings().get(0).getTrainingId()));
         });
-        /////
-//        Training training = trainingService.getTrainings().get(0);
-//        String exerciseName = training.getExerciseList().get(0).getExerciseName();
-//        int reps = training.getReps();
-//        Label label = new Label("1: "+exerciseName+"reps: "+reps);
+        basicBeginnerButton.addClickListener(event -> {
+            this.getUI().ifPresent(ui -> ui.navigate(StartTrainingGui.class, trainingService.getTrainings().get(1).getTrainingId()));
+        });
+        add(menu,counterLabel,fullBodyWorkoutButton,span);
 
-        //////
-        add(menu,counterLabel,startButton,span);
-
-    }
-
-    public Label getCounterLabel() {
-        return counterLabel;
-    }
-
-    public void setSpan(String s) {
-        span.setText(s);
-    }
-
-    @Override
-    protected void onAttach(AttachEvent attachEvent) {
-
-    }
-
-    @Override
-    protected void onDetach(DetachEvent detachEvent) {
-        thread.interrupt();
-        thread = null;
     }
 }

@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class TrainingRepository {
@@ -16,7 +18,8 @@ public class TrainingRepository {
     public TrainingRepository(ExerciseRepository exerciseRepository) {
         this.exerciseRepository = exerciseRepository;
         trainingList = new ArrayList<>();
-        trainingList.add(new Training(exerciseRepository.getExerciseList(),5,30,1));
+
+
     }
     public List<Training> getTrainings(){
         return trainingList;
