@@ -15,6 +15,8 @@ import pl.pawpam.engineeringproject.training.Exercise;
 import pl.pawpam.engineeringproject.user.User;
 import pl.pawpam.engineeringproject.user.UserServiceImpl;
 
+import javax.management.relation.Role;
+
 public class UsersManageGui extends VerticalLayout{
 
     private AdminService adminService;

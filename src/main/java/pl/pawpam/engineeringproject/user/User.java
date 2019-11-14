@@ -69,16 +69,16 @@ public class User {
         this.roles = roles;
     }
 
-    public int getNrRoli() {
-        return nrRoli;
+    public int getNrRole() {
+        return nrRole;
     }
 
-    public void setNrRoli(int nrRoli) {
-        this.nrRoli = nrRoli;
+    public void setNrRole(int nrRole) {
+        this.nrRole = nrRole;
     }
 
     @Transient
-    private int nrRoli;
+    private int nrRole;
 
     public User() {
     }

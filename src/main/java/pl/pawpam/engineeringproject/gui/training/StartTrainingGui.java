@@ -51,7 +51,6 @@ public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<
 
     }
 
-
     @Override
     public void setParameter(BeforeEvent beforeEvent, Long id) {
         this.id = id;
@@ -112,6 +111,7 @@ public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<
             {
                 thread.interrupt();
                 System.out.println("koniec treningu");
+                trainingService.sendMail();
                 counterLabel.setText("Koniec!");
             }
             else {

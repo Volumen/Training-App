@@ -16,13 +16,13 @@ public interface AdminRepository extends JpaRepository<User, Integer> {
 
     @Modifying
     @Query("UPDATE User u SET u.active = :intActive WHERE u.id = :id")
-    void updateActivationUser(@Param("intActive") int active, @Param("id") int id);
+    void updateActivationUser(@Param("intActive") int active, @Param("id") long id);
 
 
     //nativeQuery znaczy, ze nie używamy mapowania w tym przypadku, nie musimy miec klasy userRole, hibernate ma to wykonać i koniec kropka
     @Modifying
     @Query(value = "UPDATE user_role r SET r.role_id = :roleId WHERE r.user_id= :id", nativeQuery = true)
-    void updateRoleUser(@Param("roleId") int nrRoli, @Param("id") int id);
+    void updateRoleUser(@Param("roleId") int nrRole, @Param("id") int id);
 
     //to juz nie jest modyfikacja, tylko zwykle wyszukiwanie
     @Query(value = "SELECT * FROM User u WHERE u.name LIKE %:param% OR u.last_name LIKE %:param% OR email LIKE %:param%", nativeQuery = true)

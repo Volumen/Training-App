@@ -48,7 +48,7 @@ public class AdminPanelGui extends VerticalLayout {
 //        usersButton = new Button("Manage Users");
 //        horizontalLayout = new HorizontalLayout();
         mainAdminVerticalLayout = new VerticalLayout();
-        mainAdminVerticalLayout.setWidth("60%");
+        mainAdminVerticalLayout.setWidth("70%");
         this.setDefaultHorizontalComponentAlignment(Alignment.CENTER);
 
         //Initialize views

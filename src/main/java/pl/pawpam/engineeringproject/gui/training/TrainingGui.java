@@ -42,8 +42,9 @@ public class TrainingGui extends VerticalLayout {
         });
         basicBeginnerButton.addClickListener(event -> {
             this.getUI().ifPresent(ui -> ui.navigate(StartTrainingGui.class, trainingService.getTrainings().get(1).getTrainingId()));
+
         });
-        add(menu,counterLabel,fullBodyWorkoutButton,span);
+        add(menu,counterLabel,fullBodyWorkoutButton,basicBeginnerButton,span);
 
     }
 }

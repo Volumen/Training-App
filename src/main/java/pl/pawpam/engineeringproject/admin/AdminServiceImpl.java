@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.pawpam.engineeringproject.email.EmailAspect;
 import pl.pawpam.engineeringproject.user.Role;
 import pl.pawpam.engineeringproject.user.RoleRepository;
 import pl.pawpam.engineeringproject.user.User;
@@ -60,9 +61,9 @@ public class AdminServiceImpl implements AdminService {//jesli jedna się nie po
     }
 
     @Override
-    public void updateUser(int id, int nrRoli, int activity) {
+    public void updateUser(int id, int nrRole, int activity) {
         adminRepository.updateActivationUser(activity, id);
-        adminRepository.updateRoleUser(nrRoli,id);
+        adminRepository.updateRoleUser(nrRole,id);
     }
 
     @Override
@@ -70,6 +71,7 @@ public class AdminServiceImpl implements AdminService {//jesli jedna się nie po
         Page<User> userList = adminRepository.findAllSearch(param, pageable);
         return userList;
     }
+
 //    @Override
 //    public void insertInBatch(List<User> userList){
 //        EntityManager em = jpaContext.getEntityManagerByManagedType(User.class);
