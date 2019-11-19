@@ -4,13 +4,9 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.pawpam.engineeringproject.gui.menu.Menu;
-import pl.pawpam.engineeringproject.training.Exercise;
-import pl.pawpam.engineeringproject.training.ExerciseService;
-import pl.pawpam.engineeringproject.user.UserServiceImpl;
-
+import pl.pawpam.engineeringproject.training.Exercise.Exercise;
+import pl.pawpam.engineeringproject.training.Exercise.ExerciseService;
 
 
 public class ExerciseManageGui extends VerticalLayout {

@@ -7,8 +7,8 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.OptionalParameter;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.pawpam.engineeringproject.training.Exercise;
-import pl.pawpam.engineeringproject.training.ExerciseService;
+import pl.pawpam.engineeringproject.training.Exercise.Exercise;
+import pl.pawpam.engineeringproject.training.Exercise.ExerciseService;
 
 
 import java.util.Optional;

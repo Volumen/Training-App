@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service("userService")
 @Transactional
-public class UserServiceImpl implements UserServiceInterface {
+public class UserService implements UserServiceInterface {
 
 
 //    @Qualifier("userRepository")
@@ -27,9 +27,9 @@ public class UserServiceImpl implements UserServiceInterface {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(@Qualifier("userRepository")UserRepository userRepository,
+    public UserService(@Qualifier("userRepository")UserRepository userRepository,
                        @Qualifier("roleRepository") RoleRepository roleRepository,
-                           BCryptPasswordEncoder bCryptPasswordEncoder) {
+                       BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository=userRepository;
         this.roleRepository=roleRepository;
         this.bCryptPasswordEncoder=bCryptPasswordEncoder;

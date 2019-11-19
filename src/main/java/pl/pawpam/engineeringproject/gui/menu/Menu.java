@@ -10,7 +10,7 @@ import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import pl.pawpam.engineeringproject.user.User;
-import pl.pawpam.engineeringproject.user.UserServiceImpl;
+import pl.pawpam.engineeringproject.user.UserService;
 import pl.pawpam.engineeringproject.utilities.UserUtilities;
 
 @CssImport("styles/custom-styles.css")
@@ -21,11 +21,11 @@ public class Menu extends VerticalLayout {
     private HorizontalLayout horizontalLayout;
     private Div div;
 
-    private UserServiceImpl userService;
+    private UserService userService;
     int roleNr;
 
     @Autowired
-    public Menu(UserServiceImpl userService) {
+    public Menu(UserService userService) {
         this.userService = userService;
         horizontalLayout = new HorizontalLayout();
         horizontalLayout.setClassName("menu-horizontal");

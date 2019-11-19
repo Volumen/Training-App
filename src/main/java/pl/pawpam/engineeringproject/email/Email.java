@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
-import pl.pawpam.engineeringproject.admin.AdminServiceImpl;
-import pl.pawpam.engineeringproject.user.User;
-import pl.pawpam.engineeringproject.user.UserServiceImpl;
+import pl.pawpam.engineeringproject.user.UserService;
 import pl.pawpam.engineeringproject.utilities.UserUtilities;
 
 @Aspect
@@ -17,10 +15,10 @@ import pl.pawpam.engineeringproject.utilities.UserUtilities;
 public class Email {
 
     private JavaMailSender javaMailSender;
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Autowired
-    public Email(JavaMailSender javaMailSender, UserServiceImpl userService ) {
+    public Email(JavaMailSender javaMailSender, UserService userService ) {
     this.javaMailSender = javaMailSender;
     this.userService = userService;
 

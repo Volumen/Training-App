@@ -4,26 +4,23 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.pawpam.engineeringproject.admin.AdminService;
 import pl.pawpam.engineeringproject.admin.AdminServiceImpl;
-import pl.pawpam.engineeringproject.training.Exercise;
 import pl.pawpam.engineeringproject.user.User;
-import pl.pawpam.engineeringproject.user.UserServiceImpl;
+import pl.pawpam.engineeringproject.user.UserService;
 
 import java.util.Optional;
 
 @Route(value = "admin/user")
 public class SpecificUserManageGui extends VerticalLayout implements HasUrlParameter<Long> {
     private Long id;
-    private UserServiceImpl userService;
+    private UserService userService;
     private AdminService adminService;
     private Label nameLabel;
     private Label lastNameLabel;
@@ -35,7 +32,7 @@ public class SpecificUserManageGui extends VerticalLayout implements HasUrlParam
     private int active;
 
     @Autowired
-    public SpecificUserManageGui(UserServiceImpl userService, AdminServiceImpl adminService) {
+    public SpecificUserManageGui(UserService userService, AdminServiceImpl adminService) {
     this.userService = userService;
     this.adminService = adminService;
     nameLabel = new Label();

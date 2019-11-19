@@ -1,6 +1,7 @@
-package pl.pawpam.engineeringproject.training;
+package pl.pawpam.engineeringproject.training.Exercise;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public class ExerciseService implements ExerciseServiceInterface {
     private ExerciseRepository exerciseRepository;
 
     @Autowired
-    public ExerciseService(ExerciseRepository exerciseRepository) {
+    public ExerciseService(@Qualifier("exerciseRepository") ExerciseRepository exerciseRepository) {
         this.exerciseRepository = exerciseRepository;
     }
 
@@ -22,7 +23,7 @@ public class ExerciseService implements ExerciseServiceInterface {
 
     @Override
     public List<Exercise> getExercises() {
-        return exerciseRepository.getExerciseList();
+        return exerciseRepository.findAll();
     }
 
 }

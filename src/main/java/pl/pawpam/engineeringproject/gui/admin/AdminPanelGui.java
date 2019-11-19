@@ -2,7 +2,6 @@ package pl.pawpam.engineeringproject.gui.admin;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -15,15 +14,14 @@ import pl.pawpam.engineeringproject.admin.AdminServiceImpl;
 import pl.pawpam.engineeringproject.gui.admin.exercises.ExerciseManageGui;
 import pl.pawpam.engineeringproject.gui.admin.users.UsersManageGui;
 import pl.pawpam.engineeringproject.gui.menu.Menu;
-import pl.pawpam.engineeringproject.training.ExerciseService;
+import pl.pawpam.engineeringproject.training.Exercise.ExerciseService;
 import pl.pawpam.engineeringproject.training.TrainingService;
-import pl.pawpam.engineeringproject.user.User;
-import pl.pawpam.engineeringproject.user.UserServiceImpl;
+import pl.pawpam.engineeringproject.user.UserService;
 
 //@Secured(value = "ROLE_ADMIN")
 @Route("admin")
 public class AdminPanelGui extends VerticalLayout {
-    private UserServiceImpl userService;
+    private UserService userService;
     private Menu menu;
     private Label adminLabel;
     private AdminServiceImpl adminService;
@@ -36,7 +34,7 @@ public class AdminPanelGui extends VerticalLayout {
     private VerticalLayout mainAdminVerticalLayout;
 
     @Autowired
-    public AdminPanelGui(UserServiceImpl userService, AdminServiceImpl adminService, ExerciseService exerciseService, TrainingService trainingService) {
+    public AdminPanelGui(UserService userService, AdminServiceImpl adminService, ExerciseService exerciseService, TrainingService trainingService) {
         this.userService = userService;
         this.adminService = adminService;
         this.exerciseService = exerciseService;

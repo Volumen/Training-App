@@ -5,17 +5,15 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.shared.communication.PushMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.pawpam.engineeringproject.gui.TrainingThread;
-import pl.pawpam.engineeringproject.training.Exercise;
+import pl.pawpam.engineeringproject.training.Exercise.Exercise;
 import pl.pawpam.engineeringproject.training.Training;
 import pl.pawpam.engineeringproject.training.TrainingService;
 
@@ -83,7 +81,7 @@ public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<
 
             trainingNameLabel.setText("Name: "+newTraining.get().getTrainingName());
             levelLabel.setText("Level: "+newTraining.get().getLevel());
-            breaksLabel.setText("Breaks between exercises: "+newTraining.get().getBreaksBetweenExercises());
+            breaksLabel.setText("Breaks between exercises: "+newTraining.get().getBreaksBetweenExercises()+"sec");
 
             trainingGrid.setItems(newTraining.get().getExerciseList());
             trainingGrid.addColumn(Exercise::getExerciseName).setHeader("Exercise");
@@ -109,6 +107,7 @@ public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<
         continueButton.addClickListener(event -> {
             if(setNumber==newTraining.get().getSets()-1 && exerciseNumber == newTraining.get().getExerciseList().size() - 1)
             {
+
                 thread.interrupt();
                 System.out.println("koniec treningu");
                 trainingService.sendMail();
@@ -125,6 +124,7 @@ public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<
 
                 thread = new TrainingThread(UI.getCurrent(), this, exerciseNumber);
                 thread.start();
+
             }
         });
         trainingInfoLayout.add(trainingNameLabel,levelLabel,breaksLabel,image);

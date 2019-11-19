@@ -1,4 +1,4 @@
-package pl.pawpam.engineeringproject.training;
+package pl.pawpam.engineeringproject.training.Exercise;
 
 import com.sun.istack.NotNull;
 import com.vaadin.flow.component.html.Image;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Exercise {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "exercise_id")
     private int id;
 
@@ -31,7 +31,6 @@ public class Exercise {
     private String imgPath;
 
     @Column(name = "reps")
-    @NotNull
     private int reps;
 
     public Exercise(int id, String exerciseName, int level, String info, String imgPath, int reps) {
@@ -43,7 +42,7 @@ public class Exercise {
         this.reps = reps;
     }
 
-    public Exercise(int id, String exerciseName, int level, String info, String imgPath) {
+    public Exercise(String exerciseName, int level, String info, String imgPath) {
         this.exerciseName = exerciseName;
         this.level = level;
         this.info = info;
@@ -66,6 +65,14 @@ public class Exercise {
     }
 
     public Exercise() {
+    }
+
+    public Exercise(String exerciseName, int level, String info, String imgPath, int reps) {
+        this.exerciseName = exerciseName;
+        this.level = level;
+        this.info = info;
+        this.imgPath = imgPath;
+        this.reps = reps;
     }
 
     public String getImgPath() {

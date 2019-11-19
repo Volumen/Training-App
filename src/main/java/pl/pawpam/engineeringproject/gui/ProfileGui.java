@@ -7,7 +7,7 @@ import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.pawpam.engineeringproject.gui.menu.Menu;
 import pl.pawpam.engineeringproject.user.User;
-import pl.pawpam.engineeringproject.user.UserServiceImpl;
+import pl.pawpam.engineeringproject.user.UserService;
 import pl.pawpam.engineeringproject.utilities.UserUtilities;
 
 
@@ -19,7 +19,7 @@ public class ProfileGui extends VerticalLayout {
     private Label userEmailLabel;
     private Label userActiveLabel;
     private Label roleLabel;
-    private UserServiceImpl userService;
+    private UserService userService;
     private Menu menu;
     private String role;
     private int roleNr;
@@ -27,7 +27,7 @@ public class ProfileGui extends VerticalLayout {
     private Components components;
 
     @Autowired
-    public ProfileGui(UserServiceImpl userService) {
+    public ProfileGui(UserService userService) {
         this.userService = userService;
         components = new Components();
         setAlignItems(Alignment.CENTER);

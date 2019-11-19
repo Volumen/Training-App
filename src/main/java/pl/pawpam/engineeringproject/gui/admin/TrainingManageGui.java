@@ -6,23 +6,20 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.pawpam.engineeringproject.gui.menu.Menu;
-import pl.pawpam.engineeringproject.training.Exercise;
-import pl.pawpam.engineeringproject.training.ExerciseService;
 import pl.pawpam.engineeringproject.training.Training;
 import pl.pawpam.engineeringproject.training.TrainingService;
-import pl.pawpam.engineeringproject.user.User;
-import pl.pawpam.engineeringproject.user.UserServiceImpl;
+import pl.pawpam.engineeringproject.user.UserService;
 
 @Route("admin/training")
 public class TrainingManageGui extends VerticalLayout {
 
     private TrainingService trainingService;
-    private UserServiceImpl userService;
+    private UserService userService;
     private Menu menu;
     private Label label;
 
     @Autowired
-    public TrainingManageGui(UserServiceImpl userService, TrainingService trainingService) {
+    public TrainingManageGui(UserService userService, TrainingService trainingService) {
         this.userService = userService;
         this.trainingService = trainingService;
         menu = new Menu(userService);

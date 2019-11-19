@@ -1,62 +1,64 @@
 package pl.pawpam.engineeringproject.gui;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.contextmenu.MenuItem;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.NavigationEvent;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
 import pl.pawpam.engineeringproject.gui.menu.Menu;
-import pl.pawpam.engineeringproject.user.UserServiceImpl;
+import pl.pawpam.engineeringproject.user.UserService;
 
-import java.security.AccessController;
+import java.util.List;
 
 
 @Route("")
 public class MainGui extends VerticalLayout {
     private Menu mainMenu;
         private MenuBar menuBar;
-        UserServiceImpl userService;
+        UserService userService;
         private Button button;
+        private Image image;
+        private Label label;
 
         @Autowired
-    public MainGui(UserServiceImpl userService) {
+    public MainGui(UserService userService) {
         this.userService = userService;
         mainMenu = new Menu(userService);
-        Label l1 = new Label("halo");
-        button = new Button("Hallo!");
-        button.setClassName("buttonOne");
+            setAlignItems(Alignment.CENTER);
+            image = new Image();
+            label = new Label("Random image for MOTIVATION!");
 
+            RestTemplate restTemplate = new RestTemplate();
+            String[] images;
 
-        add(mainMenu,l1,button);
+            JsonNode currency = restTemplate.getForObject("https://wallhaven.cc/api/v1/search?q=workout&categories=111&purity=100&apikey=9geHJ194PJCPeVlHtWZSibzRUdwW2kLu",
+                    JsonNode.class).get("data");
+            images = separateLinks(String.valueOf(currency));
+            int random = (int) (Math.random()* images.length)+1;
+            image.setSrc(images[random]);
+            image.setAlt("image");
+            image.setVisible(true);
+            image.setHeight("500px");
 
+        add(mainMenu,label,image);
     }
-
-//    private void Menu() {
-//        barmenu = new MenuBar();
-//
-//        MenuItem mainPage = barmenu.addItem("Main Page");
-//        MenuItem login = barmenu.addItem("Login");
-//        MenuItem register = barmenu.addItem("Register");
-//
-//        mainPage.addClickListener(event -> {
-//            mainPage.getUI().ifPresent(ui -> ui.navigate(""));
-//        });
-//        register.addClickListener(event -> {
-//            register.getUI().ifPresent(ui -> ui.navigate("register"));
-//        });
-//        login.addClickListener(event -> {
-//            login.getUI().ifPresent(ui -> ui.navigate("login"));
-//        });
-//
-//
-//        add(barmenu);
-//    }
-//    public MenuBar getBarmenu() {
-//        return barmenu;
-//    }
+    public String[] separateLinks(String str)
+    {
+        String[] strings;
+        strings = str.split("path\":\"");
+        for(int i = 1;i<strings.length;i++)
+        {
+            strings[i] = strings[i].substring(strings[i].indexOf("https://w.wall"),strings[i].indexOf("thumbs")-3);
+            System.out.println("S["+i+"]="+ strings[i]);
+        }
+        System.out.println(str);
+        return strings;
+    }
 }

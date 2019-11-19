@@ -1,18 +1,41 @@
 package pl.pawpam.engineeringproject.training;
 
-import javax.persistence.Entity;
+import com.sun.istack.NotNull;
+import pl.pawpam.engineeringproject.training.Exercise.Exercise;
+
+import javax.persistence.*;
 import java.util.List;
-import java.util.Map;
 
-
+@Entity
+@Table(name = "training")
 public class Training {
 
-    private List<Exercise> exerciseList;
-    private int sets;
-    private Long userId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "training_id")
     private Long trainingId;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "exercises_to_training", joinColumns = @JoinColumn(name = "training_id"), inverseJoinColumns = @JoinColumn(name = "exercise_id"))
+    private List<Exercise> exerciseList;
+
+    @Column(name = "sets")
+    @NotNull
+    private int sets;
+
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(name = "training_name")
+    @NotNull
     private String trainingName;
+
+    @Column(name = "breaks")
+    @NotNull
     private int breaksBetweenExercises;
+
+    @Column(name = "level")
+    @NotNull
     private int level;
 
     public String getTrainingName() {
@@ -23,7 +46,7 @@ public class Training {
         this.trainingName = trainingName;
     }
 
-    public Training(List<Exercise> exerciseList, Long trainingId, String trainingName, int breaksBetweenExercises, int level, int sets) {
+    public Training(List<Exercise> exerciseList, String trainingName, int breaksBetweenExercises, int level, int sets) {
         this.exerciseList = exerciseList;
         this.trainingId = trainingId;
         this.trainingName = trainingName;
@@ -32,11 +55,38 @@ public class Training {
         this.sets = sets;
     }
 
-    public Training(List<Exercise> exerciseList, Long trainingId, int breaksBetweenExercises, int level) {
+    public Training(List<Exercise> exerciseList, int sets, Long userId, String trainingName, int breaksBetweenExercises, int level) {
+        this.exerciseList = exerciseList;
+        this.sets = sets;
+        this.userId = userId;
+        this.trainingName = trainingName;
+        this.breaksBetweenExercises = breaksBetweenExercises;
+        this.level = level;
+    }
+
+    public Training(List<Exercise> exerciseList, int breaksBetweenExercises, int level) {
         this.exerciseList = exerciseList;
         this.trainingId = trainingId;
         this.breaksBetweenExercises = breaksBetweenExercises;
         this.level = level;
+    }
+
+    public Training(List<Exercise> exerciseList, int sets, String trainingName, int breaksBetweenExercises, int level) {
+        this.exerciseList = exerciseList;
+        this.sets = sets;
+        this.trainingName = trainingName;
+        this.breaksBetweenExercises = breaksBetweenExercises;
+        this.level = level;
+    }
+
+    public Training(int sets, String trainingName, int breaksBetweenExercises, int level) {
+        this.sets = sets;
+        this.trainingName = trainingName;
+        this.breaksBetweenExercises = breaksBetweenExercises;
+        this.level = level;
+    }
+
+    public Training() {
     }
 
     public List<Exercise> getExerciseList() {
@@ -90,9 +140,9 @@ public class Training {
     @Override
     public String toString() {
         return "Training{" +
-                "exerciseList=" + exerciseList +
+                "trainingId=" + trainingId +
+                ", sets=" + sets +
                 ", userId=" + userId +
-                ", trainingId=" + trainingId +
                 ", trainingName='" + trainingName + '\'' +
                 ", breaksBetweenExercises=" + breaksBetweenExercises +
                 ", level=" + level +

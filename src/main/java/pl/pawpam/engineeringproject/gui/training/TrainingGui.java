@@ -1,24 +1,20 @@
 package pl.pawpam.engineeringproject.gui.training;
 
-import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.pawpam.engineeringproject.gui.TrainingThread;
 import pl.pawpam.engineeringproject.gui.menu.Menu;
 import pl.pawpam.engineeringproject.training.TrainingService;
-import pl.pawpam.engineeringproject.user.UserServiceImpl;
+import pl.pawpam.engineeringproject.user.UserService;
 
 
 @Route("training")
 public class TrainingGui extends VerticalLayout {
-    private UserServiceImpl userService;
+    private UserService userService;
     private TrainingService trainingService;
     private Menu menu;
     private Label counterLabel;
@@ -27,7 +23,7 @@ public class TrainingGui extends VerticalLayout {
     private Span span;
 
     @Autowired
-    public TrainingGui(UserServiceImpl userService, TrainingService trainingService) {
+    public TrainingGui(UserService userService, TrainingService trainingService) {
         this.userService = userService;
         this.trainingService = trainingService;
         menu = new Menu(userService);

@@ -1,21 +1,12 @@
 package pl.pawpam.engineeringproject.gui.admin.users;
 
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.pawpam.engineeringproject.admin.AdminService;
 import pl.pawpam.engineeringproject.admin.AdminServiceImpl;
-import pl.pawpam.engineeringproject.gui.ProfileGui;
-import pl.pawpam.engineeringproject.gui.menu.Menu;
-import pl.pawpam.engineeringproject.training.Exercise;
 import pl.pawpam.engineeringproject.user.User;
-import pl.pawpam.engineeringproject.user.UserServiceImpl;
-
-import javax.management.relation.Role;
 
 public class UsersManageGui extends VerticalLayout{
 
