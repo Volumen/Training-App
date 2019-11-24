@@ -12,10 +12,12 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.pawpam.engineeringproject.gui.TrainingThread;
 import pl.pawpam.engineeringproject.training.Exercise.Exercise;
 import pl.pawpam.engineeringproject.training.Training;
 import pl.pawpam.engineeringproject.training.TrainingService;
+import pl.pawpam.engineeringproject.user.User;
+import pl.pawpam.engineeringproject.user.UserService;
+import pl.pawpam.engineeringproject.utilities.UserUtilities;
 
 import java.util.Optional;
 
@@ -33,19 +35,25 @@ public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<
     public Label trainingNameLabel;
     private Label levelLabel;
     private Label breaksLabel;
+    private Label setsLabel;
+    public Label fullTimeLabel;
     private Grid<Exercise> trainingGrid;
     private HorizontalLayout horizontalLayout;
     private HorizontalLayout trainingInfoLayout;
     private VerticalLayout trainingLayout;
     public Label counterLabel;
     public Image image;
+    private Thread fullTimeThread;
+    private UserService userService;
+    public int fullTime = 0;
 
     int exerciseNumber = 0;
     int setNumber = 0;
 
     @Autowired
-    public StartTrainingGui(TrainingService trainingService) {
+    public StartTrainingGui(TrainingService trainingService, UserService userService) {
         this.trainingService = trainingService;
+        this.userService = userService;
 
     }
 
@@ -60,19 +68,26 @@ public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<
         trainingNameLabel = new Label();
         levelLabel = new Label();
         breaksLabel = new Label();
+        setsLabel = new Label();
+        fullTimeLabel  = new Label("Full time: 0");
+        fullTimeLabel.addClassName("full-time-counter");
         trainingGrid = new Grid<>();
         trainingGrid.setVisible(false);
         horizontalLayout = new HorizontalLayout();
         trainingLayout = new VerticalLayout();
         trainingInfoLayout = new HorizontalLayout();
         continueButton = new Button("OK!");
+        counterLabel = new Label();
         continueButton.setVisible(false);
+
+        fullTimeThread = new CountingTrainingTimeThread(UI.getCurrent(),this);
 
         newTraining = trainingService.getTrainings()
                 .stream()
                 .filter(training -> training.getTrainingId() == id)
                 .findFirst();
-
+        String username = UserUtilities.getLoggedUser();
+        User user = userService.findUserByEmail(username);
 
         showTrainingButton.addClickListener(event -> {
             showTrainingButton.setEnabled(false);
@@ -82,6 +97,7 @@ public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<
             trainingNameLabel.setText("Name: "+newTraining.get().getTrainingName());
             levelLabel.setText("Level: "+newTraining.get().getLevel());
             breaksLabel.setText("Breaks between exercises: "+newTraining.get().getBreaksBetweenExercises()+"sec");
+            setsLabel.setText("Sets: "+newTraining.get().getSets());
 
             trainingGrid.setItems(newTraining.get().getExerciseList());
             trainingGrid.addColumn(Exercise::getExerciseName).setHeader("Exercise");
@@ -95,23 +111,35 @@ public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<
             continueButton.setVisible(true);
             startButton.setVisible(false);
             setAlignItems(Alignment.CENTER);
-            counterLabel = new Label("ss");
 
-            trainingLayout.add(counterLabel);
-            add(counterLabel);
+
+            //trainingLayout.add(counterLabel);
+            //add(counterLabel);
 
             thread = new TrainingThread(UI.getCurrent(),this,0);
             thread.start();
+            fullTimeThread.start();
+
+
+
 
         });
         continueButton.addClickListener(event -> {
             if(setNumber==newTraining.get().getSets()-1 && exerciseNumber == newTraining.get().getExerciseList().size() - 1)
             {
-
+                Training finalTraining = new Training();
+                convertTraining(finalTraining, newTraining.get());
+                fullTimeThread.interrupt();
                 thread.interrupt();
                 System.out.println("koniec treningu");
+                counterLabel.setText("END!");
+
+                finalTraining.setUserId(user.getId());
+                finalTraining.setFullTimeOfTraining(fullTime);
+                trainingService.saveTraining(finalTraining);
+                 //to read data in email class
+
                 trainingService.sendMail();
-                counterLabel.setText("Koniec!");
             }
             else {
                 if (exerciseNumber == newTraining.get().getExerciseList().size() - 1) {
@@ -127,9 +155,17 @@ public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<
 
             }
         });
-        trainingInfoLayout.add(trainingNameLabel,levelLabel,breaksLabel,image);
+        trainingInfoLayout.add(trainingNameLabel,levelLabel,breaksLabel,setsLabel,fullTimeLabel);
         horizontalLayout.setWidth("300px");
         horizontalLayout.add(trainingGrid);
-        add(showTrainingButton,trainingInfoLayout,horizontalLayout,startButton,continueButton);
+        add(showTrainingButton,trainingInfoLayout,horizontalLayout,startButton,counterLabel,image,continueButton);
+    }
+    private void convertTraining(Training trainingOne, Training trainingTwo)
+    {
+        trainingOne.setLevel(trainingTwo.getLevel());
+        trainingOne.setBreaksBetweenExercises(trainingTwo.getBreaksBetweenExercises());
+        trainingOne.setExerciseList(trainingTwo.getExerciseList());
+        trainingOne.setTrainingName(trainingTwo.getTrainingName());
+        trainingOne.setSets(trainingTwo.getSets());
     }
 }

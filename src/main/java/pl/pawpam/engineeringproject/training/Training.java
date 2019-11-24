@@ -38,12 +38,25 @@ public class Training {
     @NotNull
     private int level;
 
+    @Column(name = "full_time")
+    private int fullTimeOfTraining;
+
     public String getTrainingName() {
         return trainingName;
     }
 
     public void setTrainingName(String trainingName) {
         this.trainingName = trainingName;
+    }
+
+    public Training(List<Exercise> exerciseList, int sets, Long userId, String trainingName, int breaksBetweenExercises, int level, int fullTimeOfTraining) {
+        this.exerciseList = exerciseList;
+        this.sets = sets;
+        this.userId = userId;
+        this.trainingName = trainingName;
+        this.breaksBetweenExercises = breaksBetweenExercises;
+        this.level = level;
+        this.fullTimeOfTraining = fullTimeOfTraining;
     }
 
     public Training(List<Exercise> exerciseList, String trainingName, int breaksBetweenExercises, int level, int sets) {
@@ -55,14 +68,14 @@ public class Training {
         this.sets = sets;
     }
 
-    public Training(List<Exercise> exerciseList, int sets, Long userId, String trainingName, int breaksBetweenExercises, int level) {
-        this.exerciseList = exerciseList;
-        this.sets = sets;
-        this.userId = userId;
-        this.trainingName = trainingName;
-        this.breaksBetweenExercises = breaksBetweenExercises;
-        this.level = level;
-    }
+//    public Training(List<Exercise> exerciseList, int sets, Long userId, String trainingName, int breaksBetweenExercises, int level) {
+//        this.exerciseList = exerciseList;
+//        this.sets = sets;
+//        this.userId = userId;
+//        this.trainingName = trainingName;
+//        this.breaksBetweenExercises = breaksBetweenExercises;
+//        this.level = level;
+//    }
 
     public Training(List<Exercise> exerciseList, int breaksBetweenExercises, int level) {
         this.exerciseList = exerciseList;
@@ -87,6 +100,14 @@ public class Training {
     }
 
     public Training() {
+    }
+
+    public int getFullTimeOfTraining() {
+        return fullTimeOfTraining;
+    }
+
+    public void setFullTimeOfTraining(int fullTimeOfTraining) {
+        this.fullTimeOfTraining = fullTimeOfTraining;
     }
 
     public List<Exercise> getExerciseList() {

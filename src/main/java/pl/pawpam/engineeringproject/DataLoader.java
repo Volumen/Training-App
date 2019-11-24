@@ -62,21 +62,45 @@ public class DataLoader implements CommandLineRunner {
 //        exercises.add(exerciseRepository.findAll().get(0));
 //        exercises.add(exerciseRepository.findAll().get(3));
 //        trainingRepository.save(new Training(exercises,"Abs Two",10,2,4));
-        System.out.println(trainingRepository.findAll().get(0).getExerciseList());
+       // System.out.println(trainingRepository.findAll().get(0).getExerciseList());
 //        System.out.println(trainingRepository.findAll());
 //        System.out.println("Pierwszy: "+trainingRepository.findAll().get(0).getExerciseList());
 //        System.out.println("Drugi: "+trainingRepository.findAll().get(1).getExerciseList());
        // System.out.println(exerciseRepository.findAll());
+//        exerciseRepository.save(new Exercise("Push Ups", 1,"exercise.push-up.info","https://i.imgur.com/0FHYAVT.gif"));
+//        exerciseRepository.save(new Exercise("Pull Ups", 2,"exercise.pull-up.info","https://i.imgur.com/Y4x4SwM.gif"));
+//
+//        exerciseRepository.save(new Exercise("Crunches", 1,"exercise.crunches.info","https://i.imgur.com/k2uVztg.gif"));
+//
+//        exerciseRepository.save(new Exercise("Dips", 2,"exercise.dip.info","https://i.imgur.com/NNZc7KY.gifv"));
+//        exerciseRepository.save(new Exercise("Muscle Ups", 3,"exercise.muscle-up.info","https://i.imgur.com/mzcW5JK.gif"));
+//        exerciseRepository.save(new Exercise("Chin Ups", 2,"exercise.chin-up.info","https://i.imgur.com/bTblGem.gifv"));
+//        exerciseRepository.save(new Exercise("Squads", 1,"exercise.squad.info","https://i.imgur.com/IojovAe.gifv"));
 
-//        pushUp.setReps(10);
-//        pullUp.setReps(5);
-//        sitUp.setReps(10);
-//        muscleUp.setReps(4);
-//        exerciseList.add(pushUp);
-//        exerciseList.add(pullUp);
-//        exerciseList.add(sitUp);
-//        exerciseList.add(muscleUp);
-//        trainingRepository.getTrainings().add(new Training(exerciseList,1L,"Full Body Workout",30,1,4));
+        List<Exercise> exerciseList = new ArrayList<>();
+        Exercise pushUps = exerciseRepository.findAll().get(0);
+        Exercise pullUps = exerciseRepository.findAll().get(1);
+        Exercise crunches = exerciseRepository.findAll().get(2);
+        Exercise dips = exerciseRepository.findAll().get(3);
+        Exercise muscleUps = exerciseRepository.findAll().get(4);
+        Exercise chinUps = exerciseRepository.findAll().get(5);
+        Exercise squad = exerciseRepository.findAll().get(6);
+
+        pushUps.setReps(15);
+        pullUps.setReps(5);
+        crunches.setReps(10);
+        dips.setReps(10);
+        muscleUps.setReps(4);
+        chinUps.setReps(5);
+        squad.setReps(10);
+        exerciseList.add(pushUps);
+        exerciseList.add(pullUps);
+        exerciseList.add(muscleUps);
+//        exerciseList.add(dips);
+//        exerciseList.add(muscleUps);
+//        exerciseList.add(chinUps);
+        exerciseList.add(dips);
+        //trainingRepository.save(new Training(exerciseList,"Push and Pull",20,2,4));
 //
 //        trainingRepository.getTrainings().add(new Training(exerciseList,1L,"Basic Beginner",60,1,4));
 //
@@ -85,6 +109,7 @@ public class DataLoader implements CommandLineRunner {
 //        System.out.println("Reps: "+trainingRepository.getTrainings().get(0).getExerciseList());
         //System.out.println("Exercises: "+trainingRepository.getTrainings().get(0).getExerciseList().values());
         //System.out.println("lista: "+listOfExercise);
+        System.out.println(trainingRepository.findAll());
 
 
 

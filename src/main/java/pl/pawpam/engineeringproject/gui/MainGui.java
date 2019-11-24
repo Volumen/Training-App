@@ -34,14 +34,12 @@ public class MainGui extends VerticalLayout {
             setAlignItems(Alignment.CENTER);
             image = new Image();
             label = new Label("Random image for MOTIVATION!");
-
-            RestTemplate restTemplate = new RestTemplate();
             String[] images;
-
-            JsonNode currency = restTemplate.getForObject("https://wallhaven.cc/api/v1/search?q=workout&categories=111&purity=100&apikey=9geHJ194PJCPeVlHtWZSibzRUdwW2kLu",
+            RestTemplate restTemplate = new RestTemplate();
+            JsonNode trainingPictures = restTemplate.getForObject("https://wallhaven.cc/api/v1/search?q=workout&categories=111&purity=100&apikey=9geHJ194PJCPeVlHtWZSibzRUdwW2kLu",
                     JsonNode.class).get("data");
-            images = separateLinks(String.valueOf(currency));
-            int random = (int) (Math.random()* images.length)+1;
+            images = separateLinks(String.valueOf(trainingPictures));
+            int random = (int) (Math.random()* images.length-1)+1;
             image.setSrc(images[random]);
             image.setAlt("image");
             image.setVisible(true);

@@ -1,4 +1,4 @@
-package pl.pawpam.engineeringproject.gui;
+package pl.pawpam.engineeringproject.gui.training;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
@@ -25,8 +25,6 @@ public class TrainingThread extends Thread{
         this.exercise = exercise;
 
     }
-
-
     @Override
     public void run() {
         try {
@@ -43,7 +41,7 @@ public class TrainingThread extends Thread{
                 ui.access(() -> {
                         //view.counterLabel.remove();
 
-                        view.counterLabel.setText("Exercise: " + view.newTraining.get().getExerciseList().get(exercise).getExerciseName() + " Reps: " + view.newTraining.get().getExerciseList().get(exercise).getReps());
+                        view.counterLabel.setText("Exercise: " + view.newTraining.get().getExerciseList().get(exercise).getExerciseName() + " Reps: " + view.newTraining.get().getExerciseList().get(exercise).getReps() );
                         view.image.setSrc(view.newTraining.get().getExerciseList().get(exercise).getImgPath());
                         view.image.setAlt(view.newTraining.get().getExerciseList().get(exercise).getExerciseName());
                         view.image.setVisible(true);

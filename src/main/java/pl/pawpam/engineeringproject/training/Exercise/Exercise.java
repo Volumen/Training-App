@@ -117,13 +117,8 @@ public class Exercise {
 
     @Override
     public String toString() {
-        return "Exercise{" +
-                "id=" + id +
-                ", exerciseName='" + exerciseName + '\'' +
-                ", level=" + level +
-                ", info='" + info + '\'' +
-                ", imgPath=" + imgPath +
-                '}';
+        return
+                "exerciseName='" + exerciseName ;
     }
 
     public int getReps() {

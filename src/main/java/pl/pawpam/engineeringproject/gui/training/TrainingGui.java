@@ -19,7 +19,9 @@ public class TrainingGui extends VerticalLayout {
     private Menu menu;
     private Label counterLabel;
     private Button fullBodyWorkoutButton;
-    private Button basicBeginnerButton;
+    private Button pushAndPullButton;
+    private Button beginnerAbsButton;
+    private HorizontalLayout horizontalLayout;
     private Span span;
 
     @Autowired
@@ -27,20 +29,21 @@ public class TrainingGui extends VerticalLayout {
         this.userService = userService;
         this.trainingService = trainingService;
         menu = new Menu(userService);
-        span = new Span("Halo");
 
         counterLabel = new Label("Choose training!");
         fullBodyWorkoutButton = new Button("Full Body Workout");
-        basicBeginnerButton = new Button("Basic Beginner");
-        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        pushAndPullButton = new Button("Push and Pull");
+        beginnerAbsButton = new Button("Beginner ABS");
+        horizontalLayout = new HorizontalLayout();
         fullBodyWorkoutButton.addClickListener(event->{
             this.getUI().ifPresent(ui -> ui.navigate(StartTrainingGui.class, trainingService.getTrainings().get(0).getTrainingId()));
         });
-        basicBeginnerButton.addClickListener(event -> {
+        pushAndPullButton.addClickListener(event -> {
             this.getUI().ifPresent(ui -> ui.navigate(StartTrainingGui.class, trainingService.getTrainings().get(1).getTrainingId()));
 
         });
-        add(menu,counterLabel,fullBodyWorkoutButton,basicBeginnerButton,span);
+        horizontalLayout.add(fullBodyWorkoutButton,pushAndPullButton,beginnerAbsButton);
+        add(menu,counterLabel,horizontalLayout);
 
     }
 }

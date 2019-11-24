@@ -24,6 +24,14 @@ public class TrainingService {
     public void sendMail()
     {
         System.out.println("Mail został wysłany");
-
+    }
+    public void saveTraining(Training training)
+    {
+        trainingRepository.save(training);
+    }
+    public Training getLastTraining()
+    {
+        Training training = trainingRepository.findAll().get(trainingRepository.findAll().size()-1);
+        return training;
     }
 }
