@@ -17,7 +17,8 @@ public class ExerciseService implements ExerciseServiceInterface {
     }
 
     @Override
-    public void addExercise() {
+    public void addExercise(Exercise exercise) {
+        exerciseRepository.findAll().add(exercise);
 
     }
 

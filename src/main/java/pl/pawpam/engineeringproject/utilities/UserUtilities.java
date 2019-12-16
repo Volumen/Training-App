@@ -11,11 +11,11 @@ public class UserUtilities {
         String username = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         //Jezeli w kontekscie nie jest przechowywany anonymous, to mamy pobrac nazwe zalogowanego uzytkownika
-        System.out.println("contex security: "+auth);
+        //System.out.println("contex security: "+auth);
         if(!(auth instanceof AnonymousAuthenticationToken)) //nie jest instancja tej klasy
         {
             username = auth.getName();
-            System.out.println("Username: "+username);
+            //System.out.println("Username: "+username);
         }
 
         return username;

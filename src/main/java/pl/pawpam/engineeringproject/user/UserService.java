@@ -48,18 +48,20 @@ public class UserService implements UserServiceInterface {
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
-
         Role role = roleRepository.findByRole("ROLE_USER");
         user.setRoles(new HashSet<>(Arrays.asList(role)));
         userRepository.save(user);
-
     }
-
 
     @Override
-    public void updateUserPassword(String newPassword, String email) {
-
+    public void deleteUser(User user){
+        userRepository.delete(user);
     }
+
+//    @Override
+//    public void updateUserPassword(String newPassword, String email) {
+//
+//    }
 
     @Override
     public List<User> getAllUsers() {

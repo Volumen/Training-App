@@ -4,18 +4,18 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.pawpam.engineeringproject.admin.AdminService;
+import pl.pawpam.engineeringproject.admin.AdminServiceInterface;
 import pl.pawpam.engineeringproject.admin.AdminServiceImpl;
 import pl.pawpam.engineeringproject.user.User;
 
 public class UsersManageGui extends VerticalLayout{
 
-    private AdminService adminService;
+    private AdminServiceInterface adminService;
     private Label label;
-    Long id;
 
     @Autowired
-    public UsersManageGui(AdminServiceImpl adminService) {
+    public UsersManageGui(AdminServiceInterface adminService) {
+        this.adminService = adminService;
 
         label = new Label("Users");
 

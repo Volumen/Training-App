@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import pl.pawpam.engineeringproject.user.User;
 import pl.pawpam.engineeringproject.user.UserService;
+import pl.pawpam.engineeringproject.user.UserServiceInterface;
 import pl.pawpam.engineeringproject.utilities.UserUtilities;
 
 @CssImport("styles/custom-styles.css")
@@ -21,12 +22,12 @@ public class Menu extends VerticalLayout {
     private HorizontalLayout horizontalLayout;
     private Div div;
 
-    private UserService userService;
+    private UserServiceInterface userServiceInterface;
     int roleNr;
 
     @Autowired
-    public Menu(UserService userService) {
-        this.userService = userService;
+    public Menu(UserServiceInterface userServiceInterface) {
+        this.userServiceInterface = userServiceInterface;
         horizontalLayout = new HorizontalLayout();
         horizontalLayout.setClassName("menu-horizontal");
         barmenu = new MenuBar();
@@ -40,7 +41,7 @@ public class Menu extends VerticalLayout {
         MenuItem mainPage = barmenu.addItem("Main Page");
         MenuItem login = barmenu.addItem("Login");
         MenuItem register = barmenu.addItem("Register");
-        MenuItem adminPanel = barmenu.addItem("AdminPanel");
+        MenuItem adminPanel = barmenu.addItem("Admin Panel");
         MenuItem trainingButton = barmenu.addItem("Training!");
         MenuItem logoutButton = barmenuTwo.addItem("Logout");
         MenuItem profileInfoButton = barmenuTwo.addItem("Profile");
@@ -50,13 +51,12 @@ public class Menu extends VerticalLayout {
 
      if(UserUtilities.getLoggedUser() == null)
      {
-         System.out.println("Jest puste!");
          roleNr=0;
      }
      else {
          try {
              String username = UserUtilities.getLoggedUser();
-             User user = userService.findUserByEmail(username);//bo to email jest naszą nazwa użytkownika
+             User user = userServiceInterface.findUserByEmail(username);//bo to email jest naszą nazwa użytkownika
              System.out.println("User: "+user);
              roleNr = user.getRoles().iterator().next().getId(); //w ten sposob odczytujemy nr roli jaka wróci z bazy danych
          }

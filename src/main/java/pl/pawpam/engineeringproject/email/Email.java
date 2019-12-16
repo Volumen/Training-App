@@ -9,20 +9,22 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import pl.pawpam.engineeringproject.training.Training;
 import pl.pawpam.engineeringproject.training.TrainingService;
+import pl.pawpam.engineeringproject.training.TrainingServiceInterface;
 import pl.pawpam.engineeringproject.user.User;
 import pl.pawpam.engineeringproject.user.UserService;
+import pl.pawpam.engineeringproject.user.UserServiceInterface;
 import pl.pawpam.engineeringproject.utilities.UserUtilities;
 
 @Aspect
-@Component
+//@Component
 public class Email {
 
     private JavaMailSender javaMailSender;
-    private UserService userService;
-    private TrainingService trainingService;
+    private UserServiceInterface userService;
+    private TrainingServiceInterface trainingService;
 
     @Autowired
-    public Email(JavaMailSender javaMailSender, UserService userService, TrainingService trainingService) {
+    public Email(JavaMailSender javaMailSender, UserServiceInterface userService, TrainingServiceInterface trainingService) {
     this.javaMailSender = javaMailSender;
     this.userService = userService;
     this.trainingService = trainingService;

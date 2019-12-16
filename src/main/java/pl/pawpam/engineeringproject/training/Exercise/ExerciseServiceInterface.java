@@ -5,6 +5,6 @@ import pl.pawpam.engineeringproject.training.Exercise.Exercise;
 import java.util.List;
 
 public interface ExerciseServiceInterface {
-     void addExercise();
+     void addExercise(Exercise exercise);
      List<Exercise> getExercises();
 }

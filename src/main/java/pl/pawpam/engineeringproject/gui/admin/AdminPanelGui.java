@@ -11,30 +11,30 @@ import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import pl.pawpam.engineeringproject.admin.AdminServiceImpl;
+import pl.pawpam.engineeringproject.admin.AdminServiceInterface;
 import pl.pawpam.engineeringproject.gui.admin.exercises.ExerciseManageGui;
 import pl.pawpam.engineeringproject.gui.admin.users.UsersManageGui;
 import pl.pawpam.engineeringproject.gui.menu.Menu;
 import pl.pawpam.engineeringproject.training.Exercise.ExerciseService;
+import pl.pawpam.engineeringproject.training.Exercise.ExerciseServiceInterface;
 import pl.pawpam.engineeringproject.training.TrainingService;
+import pl.pawpam.engineeringproject.training.TrainingServiceInterface;
 import pl.pawpam.engineeringproject.user.UserService;
+import pl.pawpam.engineeringproject.user.UserServiceInterface;
 
 //@Secured(value = "ROLE_ADMIN")
 @Route("admin")
 public class AdminPanelGui extends VerticalLayout {
-    private UserService userService;
+    private UserServiceInterface userService;
     private Menu menu;
     private Label adminLabel;
-    private AdminServiceImpl adminService;
-    private ExerciseService exerciseService;
-    private TrainingService trainingService;
-    private Button exercisesButton;
-    private Button trainingsButton;
-    private Button usersButton;
-    private HorizontalLayout horizontalLayout;
+    private AdminServiceInterface adminService;
+    private ExerciseServiceInterface exerciseService;
+    private TrainingServiceInterface trainingService;
     private VerticalLayout mainAdminVerticalLayout;
 
     @Autowired
-    public AdminPanelGui(UserService userService, AdminServiceImpl adminService, ExerciseService exerciseService, TrainingService trainingService) {
+    public AdminPanelGui(UserServiceInterface userService, AdminServiceInterface adminService, ExerciseServiceInterface exerciseService, TrainingServiceInterface trainingService) {
         this.userService = userService;
         this.adminService = adminService;
         this.exerciseService = exerciseService;
@@ -76,20 +76,6 @@ public class AdminPanelGui extends VerticalLayout {
             }
         });
 
-
-        //userTab.addAttachListener( event -> userTab.getUI().ifPresent(ui -> ui.navigate("admin/exercise")));
-
-//        exercisesButton.addClickListener(event -> {
-//
-//        });
-//        trainingsButton.addClickListener(event -> {
-//            trainingsButton.getUI().ifPresent(ui -> ui.navigate("admin/training"));
-//        });
-//        usersButton.addClickListener(event -> {
-//            usersButton.getUI().ifPresent(ui -> ui.navigate("admin/users"));
-//        });
-
-       // horizontalLayout.add(exercisesButton,trainingsButton,usersButton);
 
 
         add(menu,adminLabel,tabs,mainAdminVerticalLayout);

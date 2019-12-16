@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pl.pawpam.engineeringproject.gui.menu.Menu;
 import pl.pawpam.engineeringproject.user.User;
 import pl.pawpam.engineeringproject.user.UserService;
+import pl.pawpam.engineeringproject.user.UserServiceInterface;
 import pl.pawpam.engineeringproject.utilities.UserUtilities;
 
 
@@ -19,36 +20,38 @@ public class ProfileGui extends VerticalLayout {
     private Label userEmailLabel;
     private Label userActiveLabel;
     private Label roleLabel;
-    private UserService userService;
+    private UserServiceInterface userServiceInterface;
     private Menu menu;
     private String role;
     private int roleNr;
-    private Button backButton;
-    private Components components;
+
 
     @Autowired
-    public ProfileGui(UserService userService) {
-        this.userService = userService;
-        components = new Components();
+    public ProfileGui(UserServiceInterface userServiceInterface) {
+        this.userServiceInterface = userServiceInterface;
         setAlignItems(Alignment.CENTER);
-        menu = new Menu(userService);
-        backButton = components.addBackButton(" ");
+        menu = new Menu(userServiceInterface);
+
 
         String username = UserUtilities.getLoggedUser();
         System.out.println("Username: "+username);
-        User user = userService.findUserByEmail(username);//bo to email jest naszą nazwa użytkownika
+        User user = userServiceInterface.findUserByEmail(username);//bo to email jest naszą nazwa użytkownika
         System.out.println("User: "+user);
          roleNr = user.getRoles().iterator().next().getId(); //w ten sposob odczytujemy nr roli jaka wróci z bazy danych
 
-        //backButton = components.getBackButton("");
 
         userNameLabel = new Label("Name: "+user.getName());
         userLastNameLabel = new Label("Last Name: "+user.getLastName());
         userEmailLabel = new Label("Email: "+user.getEmail());
-        userActiveLabel = new Label("Active: "+user.getActive());
+        if(user.getActive() ==1) {
+            userActiveLabel = new Label("Active: Yes");
+        }
+        else {
+            userActiveLabel = new Label("Active: No");
+        }
         System.out.println(user.getNrRole());
         if(roleNr==1){role = "Trainer";}else {role = "User";}
         roleLabel = new Label("Role: "+role);
-        add(userNameLabel,userLastNameLabel,userEmailLabel,userActiveLabel,roleLabel,backButton);
+        add(userNameLabel,userLastNameLabel,userEmailLabel,userActiveLabel,roleLabel);
     }
 }

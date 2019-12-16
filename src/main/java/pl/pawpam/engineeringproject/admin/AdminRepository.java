@@ -12,7 +12,7 @@ import pl.pawpam.engineeringproject.user.User;
 
 @Repository("adminRepository")
 public interface AdminRepository extends JpaRepository<User, Integer> {
-    User findUserById(int id);
+    User findUserById(long id);
 
     @Modifying
     @Query("UPDATE User u SET u.active = :intActive WHERE u.id = :id")

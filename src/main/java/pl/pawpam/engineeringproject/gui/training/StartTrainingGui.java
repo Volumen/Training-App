@@ -2,9 +2,11 @@ package pl.pawpam.engineeringproject.gui.training;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.details.Details;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Push;
@@ -15,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pl.pawpam.engineeringproject.training.Exercise.Exercise;
 import pl.pawpam.engineeringproject.training.Training;
 import pl.pawpam.engineeringproject.training.TrainingService;
+import pl.pawpam.engineeringproject.training.TrainingServiceInterface;
 import pl.pawpam.engineeringproject.user.User;
 import pl.pawpam.engineeringproject.user.UserService;
+import pl.pawpam.engineeringproject.user.UserServiceInterface;
 import pl.pawpam.engineeringproject.utilities.UserUtilities;
 
 import java.util.Optional;
@@ -26,7 +30,7 @@ import java.util.Optional;
 public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<Long> {
     private Long id=0L;
 
-    private TrainingService trainingService;
+    private TrainingServiceInterface trainingService;
     private TrainingThread thread;
     public Optional<Training> newTraining;
     public Button showTrainingButton;
@@ -44,14 +48,15 @@ public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<
     public Label counterLabel;
     public Image image;
     private Thread fullTimeThread;
-    private UserService userService;
+    private UserServiceInterface userService;
     public int fullTime = 0;
+    public Details exerciseDescription;
 
     int exerciseNumber = 0;
     int setNumber = 0;
 
     @Autowired
-    public StartTrainingGui(TrainingService trainingService, UserService userService) {
+    public StartTrainingGui(TrainingServiceInterface trainingService, UserServiceInterface userService) {
         this.trainingService = trainingService;
         this.userService = userService;
 
@@ -79,6 +84,9 @@ public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<
         continueButton = new Button("OK!");
         counterLabel = new Label();
         continueButton.setVisible(false);
+
+        exerciseDescription = new Details();
+
 
         fullTimeThread = new CountingTrainingTimeThread(UI.getCurrent(),this);
 
@@ -158,7 +166,7 @@ public class StartTrainingGui extends VerticalLayout implements HasUrlParameter<
         trainingInfoLayout.add(trainingNameLabel,levelLabel,breaksLabel,setsLabel,fullTimeLabel);
         horizontalLayout.setWidth("300px");
         horizontalLayout.add(trainingGrid);
-        add(showTrainingButton,trainingInfoLayout,horizontalLayout,startButton,counterLabel,image,continueButton);
+        add(showTrainingButton,trainingInfoLayout,horizontalLayout,startButton,counterLabel,image,exerciseDescription,continueButton);
     }
     private void convertTraining(Training trainingOne, Training trainingTwo)
     {

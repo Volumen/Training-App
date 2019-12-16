@@ -9,6 +9,7 @@ import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.pawpam.engineeringproject.training.Exercise.Exercise;
 import pl.pawpam.engineeringproject.training.Exercise.ExerciseService;
+import pl.pawpam.engineeringproject.training.Exercise.ExerciseServiceInterface;
 
 
 import java.util.Optional;
@@ -21,10 +22,10 @@ public class SpecificExerciseGui extends VerticalLayout implements HasUrlParamet
     private Label exerciseIdLabel;
     private Label exerciseLevelLabel;
     private Label exerciseInfoLabel;
-    private ExerciseService exerciseService;
+    private ExerciseServiceInterface exerciseService;
 
     @Autowired
-    public SpecificExerciseGui(ExerciseService exerciseService) {
+    public SpecificExerciseGui(ExerciseServiceInterface exerciseService) {
         this.exerciseService = exerciseService;
         this.setAlignItems(Alignment.CENTER);
         exerciseNameLabel = new Label();

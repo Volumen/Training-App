@@ -11,7 +11,7 @@ import java.util.List;
 @Repository("trainingRepository")
 public interface TrainingRepository extends JpaRepository<Training, Integer> {
 //    List<Training> trainingList;
-
+       // Training findByTrainingId();
 //
 //    ExerciseRepository exerciseRepository;
 //

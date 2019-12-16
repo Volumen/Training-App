@@ -8,7 +8,7 @@ import pl.pawpam.engineeringproject.email.EmailAspect;
 import java.util.List;
 
 @Service
-public class TrainingService {
+public class TrainingService implements TrainingServiceInterface {
 
     private TrainingRepository trainingRepository;
 
@@ -20,15 +20,18 @@ public class TrainingService {
     {
         return trainingRepository.findAll();
     }
+    @Override
     @EmailAspect
     public void sendMail()
     {
         System.out.println("Mail został wysłany");
     }
+    @Override
     public void saveTraining(Training training)
     {
         trainingRepository.save(training);
     }
+    @Override
     public Training getLastTraining()
     {
         Training training = trainingRepository.findAll().get(trainingRepository.findAll().size()-1);

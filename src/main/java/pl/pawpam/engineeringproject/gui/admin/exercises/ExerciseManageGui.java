@@ -7,26 +7,25 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.pawpam.engineeringproject.training.Exercise.Exercise;
 import pl.pawpam.engineeringproject.training.Exercise.ExerciseService;
+import pl.pawpam.engineeringproject.training.Exercise.ExerciseServiceInterface;
 
 
 public class ExerciseManageGui extends VerticalLayout {
 
     private Label exerciseLabel;
-    private ExerciseService exerciseService;
+    private ExerciseServiceInterface exerciseService;
 
     @Autowired
-    public ExerciseManageGui(ExerciseService exerciseService) {
+    public ExerciseManageGui(ExerciseServiceInterface exerciseService) {
         this.exerciseService = exerciseService;
-        exerciseLabel = new Label("Halo cwiczenia");
+        exerciseLabel = new Label("Exercises");
 
         Image image = new Image();
         image.setClassName("push-up-image");
-        //image.setSrc("https://i.imgur.com/4VqkVaH.png");
         Grid<Exercise> exerciseGrid = new Grid<>();
         exerciseGrid.setItems(exerciseService.getExercises());
         exerciseGrid.setSelectionMode(Grid.SelectionMode.SINGLE);
         exerciseGrid.addItemClickListener(event -> {
-//            System.out.println("Clicked Item: "+event.getItem().getId());
             this.getUI().ifPresent(ui -> ui.navigate("admin/exercise/"+event.getItem().getId()));
         });
         exerciseGrid.addColumn(Exercise::getId).setHeader("Id");

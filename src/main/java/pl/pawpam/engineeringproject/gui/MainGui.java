@@ -5,30 +5,36 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.context.MessageSource;
 import org.springframework.http.*;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import pl.pawpam.engineeringproject.gui.menu.Menu;
 import pl.pawpam.engineeringproject.user.UserService;
+import pl.pawpam.engineeringproject.user.UserServiceInterface;
 
 import java.util.List;
+import java.util.Locale;
 
 
 @Route("")
 public class MainGui extends VerticalLayout {
     private Menu mainMenu;
-        private MenuBar menuBar;
-        UserService userService;
-        private Button button;
+
+        private UserServiceInterface userService;
         private Image image;
         private Label label;
 
+
         @Autowired
-    public MainGui(UserService userService) {
+    public MainGui(UserServiceInterface userService) {
         this.userService = userService;
         mainMenu = new Menu(userService);
             setAlignItems(Alignment.CENTER);

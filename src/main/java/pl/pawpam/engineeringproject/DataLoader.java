@@ -10,6 +10,8 @@ import pl.pawpam.engineeringproject.training.Exercise.Exercise;
 import pl.pawpam.engineeringproject.training.Exercise.ExerciseRepository;
 import pl.pawpam.engineeringproject.training.Training;
 import pl.pawpam.engineeringproject.training.TrainingRepository;
+import pl.pawpam.engineeringproject.user.User;
+import pl.pawpam.engineeringproject.user.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,12 +26,14 @@ public class DataLoader implements CommandLineRunner {
     private final Logger logger = LoggerFactory.getLogger(DataLoader.class);
     private ExerciseRepository exerciseRepository;
     private TrainingRepository trainingRepository;
+    private UserRepository userRepository;
 
 
     @Autowired
-    public DataLoader(@Qualifier("exerciseRepository") ExerciseRepository exerciseRepository,@Qualifier("trainingRepository") TrainingRepository trainingRepository) {
+    public DataLoader(@Qualifier("exerciseRepository") ExerciseRepository exerciseRepository,@Qualifier("trainingRepository") TrainingRepository trainingRepository, @Qualifier("userRepository") UserRepository userRepository) {
         this.exerciseRepository = exerciseRepository;
         this.trainingRepository = trainingRepository;
+        this.userRepository = userRepository;
 
     }
 
@@ -76,6 +80,8 @@ public class DataLoader implements CommandLineRunner {
 //        exerciseRepository.save(new Exercise("Muscle Ups", 3,"exercise.muscle-up.info","https://i.imgur.com/mzcW5JK.gif"));
 //        exerciseRepository.save(new Exercise("Chin Ups", 2,"exercise.chin-up.info","https://i.imgur.com/bTblGem.gifv"));
 //        exerciseRepository.save(new Exercise("Squads", 1,"exercise.squad.info","https://i.imgur.com/IojovAe.gifv"));
+//        exerciseRepository.save(new Exercise("plank", 2,"exercise.squad.info","https://i.imgur.com/IojovAe.gifv"));
+
 
         List<Exercise> exerciseList = new ArrayList<>();
         Exercise pushUps = exerciseRepository.findAll().get(0);
@@ -102,15 +108,17 @@ public class DataLoader implements CommandLineRunner {
         exerciseList.add(dips);
         //trainingRepository.save(new Training(exerciseList,"Push and Pull",20,2,4));
 //
-//        trainingRepository.getTrainings().add(new Training(exerciseList,1L,"Basic Beginner",60,1,4));
+//       trainingRepository.getTrainings().add(new Training(exerciseList,1L,"Basic Beginner",60,1,4));
 //
 //        //List<Integer> listOfExercise = new ArrayList<>(trainingRepository.getTrainings().get(1).getExerciseList().values());
 //        System.out.println("List: "+trainingRepository.getTrainings().get(0));
 //        System.out.println("Reps: "+trainingRepository.getTrainings().get(0).getExerciseList());
         //System.out.println("Exercises: "+trainingRepository.getTrainings().get(0).getExerciseList().values());
         //System.out.println("lista: "+listOfExercise);
-        System.out.println(trainingRepository.findAll());
+       // System.out.println(trainingRepository.findAll());
 
+//        User user = userRepository.findByEmail("michal.nowak@gmail.com");
+//        userRepository.updateUserId(5,"anna.nowak@gmail.com");
 
 
     }

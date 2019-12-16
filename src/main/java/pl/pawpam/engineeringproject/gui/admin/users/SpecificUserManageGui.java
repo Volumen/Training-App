@@ -5,34 +5,38 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.pawpam.engineeringproject.admin.AdminService;
+import pl.pawpam.engineeringproject.admin.AdminServiceInterface;
 import pl.pawpam.engineeringproject.admin.AdminServiceImpl;
 import pl.pawpam.engineeringproject.user.User;
 import pl.pawpam.engineeringproject.user.UserService;
+import pl.pawpam.engineeringproject.user.UserServiceInterface;
 
 import java.util.Optional;
 
 @Route(value = "admin/user")
 public class SpecificUserManageGui extends VerticalLayout implements HasUrlParameter<Long> {
     private Long id;
-    private UserService userService;
-    private AdminService adminService;
+    private UserServiceInterface userService;
+    private AdminServiceInterface adminService;
     private Label nameLabel;
     private Label lastNameLabel;
     private Label emailLabel;
     private Checkbox activeCheckbox;
     private ComboBox<String> roleComboBox;
     private Button saveButton;
+    private Button deleteUserButton;
     private int roleNumber;
     private int active;
+    private HorizontalLayout buttonsLayout;
 
     @Autowired
-    public SpecificUserManageGui(UserService userService, AdminServiceImpl adminService) {
+    public SpecificUserManageGui(UserServiceInterface userService, AdminServiceInterface adminService) {
     this.userService = userService;
     this.adminService = adminService;
     nameLabel = new Label();
@@ -41,10 +45,14 @@ public class SpecificUserManageGui extends VerticalLayout implements HasUrlParam
     activeCheckbox = new Checkbox();
     roleComboBox = new ComboBox<>();
     saveButton = new Button("Save");
+    deleteUserButton = new Button("Delete User");
+    deleteUserButton.setClassName("delete-button");
+    buttonsLayout = new HorizontalLayout();
     setAlignItems(Alignment.CENTER);
 
+    buttonsLayout.add(saveButton,deleteUserButton);
 
-    add(nameLabel,lastNameLabel,emailLabel,activeCheckbox,roleComboBox,saveButton);
+    add(nameLabel,lastNameLabel,emailLabel,activeCheckbox,roleComboBox,buttonsLayout);
 
     }
 
@@ -57,8 +65,12 @@ public class SpecificUserManageGui extends VerticalLayout implements HasUrlParam
                 .findFirst();
 //        System.out.println(exerciseOptional);
 
+
         userOptional.ifPresent(user ->
         {
+            deleteUserButton.addClickListener(event -> {
+                adminService.deleteUser((int)userOptional.get().getId());
+            });
             nameLabel.setText("Name: "+ user.getName());
             lastNameLabel.setText("Last Name: "+ user.getLastName());
             emailLabel.setText("Email: "+user.getEmail());
@@ -84,11 +96,9 @@ public class SpecificUserManageGui extends VerticalLayout implements HasUrlParam
                 System.out.println(roleComboBox.getValue());
                 if (roleComboBox.getValue().equals("Trainer"))
                 {
-                    System.out.println("Jest git");
                     roleNumber = 1;
                 }
                 else {
-                    System.out.println("cos sie zjebało");
                     roleNumber = 2;
                 }
                 if (activeCheckbox.isEmpty())
@@ -105,12 +115,6 @@ public class SpecificUserManageGui extends VerticalLayout implements HasUrlParam
                 UI.getCurrent().getPage().reload();
             });
 
-
-
-//            exerciseNameLabel.setText("Exercise name: " + exercise.getExerciseName());
-//            exerciseIdLabel.setText("Id: " + exercise.getId());
-//            exerciseLevelLabel.setText("Level: " + exercise.getLevel());
-//            exerciseInfoLabel.setText("Info: " + exercise.getInfo());
         });
     }
 }

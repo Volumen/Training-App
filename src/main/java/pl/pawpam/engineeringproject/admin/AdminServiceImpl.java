@@ -8,21 +8,16 @@ import org.springframework.data.domain.Pageable;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.pawpam.engineeringproject.email.EmailAspect;
-import pl.pawpam.engineeringproject.user.Role;
 import pl.pawpam.engineeringproject.user.RoleRepository;
 import pl.pawpam.engineeringproject.user.User;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 
 @Service("adminService")
 @Transactional//zapewnia nam transakcyjność w przypadku wykonywania wiecej niz jednego update, insertu itd.
-public class AdminServiceImpl implements AdminService {//jesli jedna się nie powiedzie to druga tez nie zostanie uruchomiona lub wycofana
+public class AdminServiceImpl implements AdminServiceInterface {//jesli jedna się nie powiedzie to druga tez nie zostanie uruchomiona lub wycofana
 
     @Qualifier("adminRepository")
     @Autowired
@@ -33,21 +28,12 @@ public class AdminServiceImpl implements AdminService {//jesli jedna się nie po
     private RoleRepository roleRepository;
 
     List<User> lisfOfUsers;
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-//    @Autowired
-//    private JpaContext jpaContext;
 
     public AdminServiceImpl() {
         lisfOfUsers = new ArrayList<>();
     }
 
-//    @Override
-//    public Page<User> findAll(Pageable pageable) {
-//        Page<User> userList = adminRepository.findAll(pageable);
-//        return userList;
-//    }
     public List<User> getUsers()
     {
         lisfOfUsers = adminRepository.findAll();
@@ -55,15 +41,19 @@ public class AdminServiceImpl implements AdminService {//jesli jedna się nie po
     }
 
     @Override
-    public User findUserById(int id) {
-        User user = adminRepository.findUserById(id);
-        return user;
+    public User findUserById(long id) {
+        return adminRepository.findUserById(id);
     }
 
     @Override
     public void updateUser(int id, int nrRole, int activity) {
         adminRepository.updateActivationUser(activity, id);
         adminRepository.updateRoleUser(nrRole,id);
+    }
+    @Override
+    public void deleteUser(long id) {
+
+        adminRepository.delete(findUserById(id));
     }
 
     @Override

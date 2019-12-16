@@ -9,13 +9,15 @@ import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.pawpam.engineeringproject.gui.menu.Menu;
 import pl.pawpam.engineeringproject.training.TrainingService;
+import pl.pawpam.engineeringproject.training.TrainingServiceInterface;
 import pl.pawpam.engineeringproject.user.UserService;
+import pl.pawpam.engineeringproject.user.UserServiceInterface;
 
 
 @Route("training")
 public class TrainingGui extends VerticalLayout {
-    private UserService userService;
-    private TrainingService trainingService;
+    private UserServiceInterface userService;
+    private TrainingServiceInterface trainingService;
     private Menu menu;
     private Label counterLabel;
     private Button fullBodyWorkoutButton;
@@ -25,10 +27,11 @@ public class TrainingGui extends VerticalLayout {
     private Span span;
 
     @Autowired
-    public TrainingGui(UserService userService, TrainingService trainingService) {
+    public TrainingGui(UserServiceInterface userService, TrainingServiceInterface trainingService) {
         this.userService = userService;
         this.trainingService = trainingService;
         menu = new Menu(userService);
+        setAlignItems(Alignment.CENTER);
 
         counterLabel = new Label("Choose training!");
         fullBodyWorkoutButton = new Button("Full Body Workout");
